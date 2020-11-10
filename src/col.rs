@@ -23,7 +23,7 @@ pub fn el_ast(el: &impl Coord, ast: &Asteroid) -> bool {
     };
 }
 
-pub fn asteroid_bullet(bullets: &Vec<Bullet>, asts: &[Asteroid; 10]) -> bool {
+pub fn ast_bullet(bullets: &Vec<Bullet>, asts: &[Asteroid; 10]) -> bool {
     for bul in bullets.iter() {
         if el_asts(bul, asts) {
             return true;
