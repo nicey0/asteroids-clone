@@ -1,3 +1,6 @@
+use super::consts::*;
+use rand::{thread_rng, Rng};
+
 pub struct Asteroid {
     x: f64,
     y: f64,
@@ -9,24 +12,63 @@ pub struct Asteroid {
 
 impl Asteroid {
     pub fn new() -> Self {
+        let ((x, xspd), (y, yspd)) = Self::get_random_xy();
         Self {
-            x: 0.0,
-            y: 0.0,
+            x,
+            y,
+            xspd,
+            yspd,
             w: 0.0,
             h: 0.0,
-            xspd: 0.0,
-            yspd: 0.0,
         }
     }
 
-    fn get_random_x() -> (f64, f64) {
-        0.0, 0.0;
+    fn get_random_xy() -> ((f64, f64), (f64, f64)) {
+        let fh = match thread_rng().gen_range(0, 2) {
+            0 => (-(PADDING as f64) + 0.1, Self::random_spd()),
+            _ => ((DIM + PADDING) as f64 - 0.1, Self::random_spd() * -1.0),
+        };
+        let fd = match thread_rng().gen_range(0, 2) {
+            0 => (Self::rand_mid(), Self::random_spd()),
+            _ => (
+                Self::rand_mid() + DIM as f64 / 2.0 - 0.1,
+                Self::random_spd() * -1.0,
+            ),
+        };
+        return match thread_rng().gen_range(0, 2) {
+            0 => (fh, fd),
+            _ => (fd, fh),
+        };
+    }
+
+    fn get_random_dir(min: f64, max: f64, spdm: f64) -> (f64, f64) {
+        let d = thread_rng().gen_range(min, max);
+        let dspd = thread_rng().gen_range(0.0, ASTSPD) * spdm;
+        (d, dspd)
+    }
+
+    fn rand_mid() -> f64 {
+        thread_rng().gen_range(0.0, DIM as f64 / 2.0)
+    }
+
+    fn random_spd() -> f64 {
+        thread_rng().gen_range(0.0, ASTSPD)
     }
 
     pub fn tick(&mut self) -> bool {
         self.x += self.xspd;
         self.y += self.yspd;
         // check out of bounds
-        !(x < 0.0 || x > WIDTH + PADDING || y < 0.0 || y > HEIGHT + PADDING)
+        !(self.x < -(PADDING as f64)
+            || self.x > DIM as f64 + PADDING as f64
+            || self.y < -(PADDING as f64)
+            || self.y > DIM as f64 + PADDING as f64)
+    }
+
+    pub fn print(&self) {
+        println!(
+            "x:    {}\ny:    {}\nxspd: {}\nyspd: {}",
+            self.x, self.y, self.xspd, self.yspd
+        );
     }
 }

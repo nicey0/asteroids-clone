@@ -32,14 +32,14 @@ impl Ship {
     pub fn tick(&mut self) {
         self.x += self.xspd;
         self.y += self.yspd;
-        if self.x < 0.0 {
-            self.x = (WIDTH + PADDING - 1) as f64;
-        } else if self.x >= (WIDTH + PADDING) as f64 {
+        if self.x < -(PADDING as f64) {
+            self.x = (DIM + PADDING - 1) as f64;
+        } else if self.x >= (DIM + PADDING) as f64 {
             self.x = 0.0;
         }
-        if self.y < 0.0 {
-            self.y = (HEIGHT + PADDING - 1) as f64;
-        } else if self.y >= (HEIGHT + PADDING) as f64 {
+        if self.y < -(PADDING as f64) {
+            self.y = (DIM + PADDING - 1) as f64;
+        } else if self.y >= (DIM + PADDING) as f64 {
             self.y = 0.0;
         }
     }
