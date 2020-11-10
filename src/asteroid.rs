@@ -1,6 +1,7 @@
 use super::consts::*;
 use rand::{thread_rng, Rng};
 
+#[derive(Clone, Copy)]
 pub struct Asteroid {
     x: f64,
     y: f64,
@@ -25,34 +26,17 @@ impl Asteroid {
 
     fn get_random_xy() -> ((f64, f64), (f64, f64)) {
         let fh = match thread_rng().gen_range(0, 2) {
-            0 => (-(PADDING as f64) + 0.1, Self::random_spd()),
-            _ => ((DIM + PADDING) as f64 - 0.1, Self::random_spd() * -1.0),
+            0 => (-(PADDING as f64) + 0.1, random_spd()),
+            _ => ((DIM + PADDING) as f64 - 0.1, random_spd() * -1.0),
         };
         let fd = match thread_rng().gen_range(0, 2) {
-            0 => (Self::rand_mid(), Self::random_spd()),
-            _ => (
-                Self::rand_mid() + DIM as f64 / 2.0 - 0.1,
-                Self::random_spd() * -1.0,
-            ),
+            0 => (rand_mid(), random_spd()),
+            _ => (rand_mid() + DIM as f64 / 2.0 - 0.1, random_spd() * -1.0),
         };
         return match thread_rng().gen_range(0, 2) {
             0 => (fh, fd),
             _ => (fd, fh),
         };
-    }
-
-    fn get_random_dir(min: f64, max: f64, spdm: f64) -> (f64, f64) {
-        let d = thread_rng().gen_range(min, max);
-        let dspd = thread_rng().gen_range(0.0, ASTSPD) * spdm;
-        (d, dspd)
-    }
-
-    fn rand_mid() -> f64 {
-        thread_rng().gen_range(0.0, DIM as f64 / 2.0)
-    }
-
-    fn random_spd() -> f64 {
-        thread_rng().gen_range(0.0, ASTSPD)
     }
 
     pub fn tick(&mut self) -> bool {
@@ -71,4 +55,18 @@ impl Asteroid {
             self.x, self.y, self.xspd, self.yspd
         );
     }
+}
+
+fn get_random_dir(min: f64, max: f64, spdm: f64) -> (f64, f64) {
+    let d = thread_rng().gen_range(min, max);
+    let dspd = thread_rng().gen_range(0.0, ASTSPD) * spdm;
+    (d, dspd)
+}
+
+fn rand_mid() -> f64 {
+    thread_rng().gen_range(0.0, DIM as f64 / 2.0)
+}
+
+fn random_spd() -> f64 {
+    thread_rng().gen_range(0.0, ASTSPD)
 }
