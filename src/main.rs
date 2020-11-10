@@ -7,6 +7,7 @@ mod asteroid;
 mod col;
 mod math;
 mod ship;
+mod util;
 use asteroid::Asteroid;
 use col::*;
 use ship::*;

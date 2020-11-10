@@ -1,5 +1,6 @@
 use super::consts::*;
 use super::math::*;
+use super::util::Coord;
 
 #[derive(Debug)]
 pub struct Ship {
@@ -44,14 +45,6 @@ impl Ship {
             self.y = 0.0;
         }
     }
-
-    pub fn get_x(&self) -> f64 {
-        self.x
-    }
-
-    pub fn get_y(&self) -> f64 {
-        self.y
-    }
 }
 
 #[derive(PartialEq, Clone, Copy)]
@@ -84,5 +77,25 @@ impl Bullet {
             || self.x > DIM as f64 + PADDING as f64
             || self.y < -(PADDING as f64)
             || self.y > DIM as f64 + PADDING as f64)
+    }
+}
+
+impl Coord for Ship {
+    fn get_x(&self) -> f64 {
+        self.x
+    }
+
+    fn get_y(&self) -> f64 {
+        self.y
+    }
+}
+
+impl Coord for Bullet {
+    fn get_x(&self) -> f64 {
+        self.x
+    }
+
+    fn get_y(&self) -> f64 {
+        self.y
     }
 }
