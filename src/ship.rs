@@ -38,8 +38,8 @@ impl Ship {
             self.x = 0.0;
         }
         if self.y < 0.0 {
-            self.y = (HEIGHT - 1) as f64;
-        } else if self.y >= HEIGHT as f64 {
+            self.y = (HEIGHT + PADDING - 1) as f64;
+        } else if self.y >= (HEIGHT + PADDING) as f64 {
             self.y = 0.0;
         }
     }
