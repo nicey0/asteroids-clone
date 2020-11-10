@@ -4,9 +4,11 @@ mod consts;
 use consts::*;
 
 mod asteroid;
+mod col;
 mod math;
 mod ship;
 use asteroid::Asteroid;
+use col::*;
 use ship::*;
 
 fn main() {

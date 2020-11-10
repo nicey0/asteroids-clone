@@ -44,6 +44,14 @@ impl Ship {
             self.y = 0.0;
         }
     }
+
+    pub fn get_x(&self) -> f64 {
+        self.x
+    }
+
+    pub fn get_y(&self) -> f64 {
+        self.y
+    }
 }
 
 #[derive(PartialEq, Clone, Copy)]

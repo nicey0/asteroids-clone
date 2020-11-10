@@ -5,10 +5,9 @@ use rand::{thread_rng, Rng};
 pub struct Asteroid {
     x: f64,
     y: f64,
-    w: f64,
-    h: f64,
     xspd: f64,
     yspd: f64,
+    w: f64,
 }
 
 impl Asteroid {
@@ -20,7 +19,6 @@ impl Asteroid {
             xspd,
             yspd,
             w: 0.0,
-            h: 0.0,
         }
     }
 
@@ -54,6 +52,18 @@ impl Asteroid {
             "x:    {}\ny:    {}\nxspd: {}\nyspd: {}",
             self.x, self.y, self.xspd, self.yspd
         );
+    }
+
+    pub fn get_x(&self) -> f64 {
+        self.x
+    }
+
+    pub fn get_y(&self) -> f64 {
+        self.y
+    }
+
+    pub fn get_w(&self) -> f64 {
+        self.w
     }
 }
 
