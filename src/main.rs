@@ -8,7 +8,8 @@ const RADTODEG: f64 = 2.0 * (PI / 360.0);
 struct Ship {
     x: f64,
     y: f64,
-    spd: f64,
+    xspd: f64,
+    yspd: f64,
     rot: f64,
 }
 
@@ -17,36 +18,35 @@ impl Ship {
         Self {
             x: 0.0,
             y: 0.0,
-            spd: 0.0,
+            xspd: 0.0,
+            yspd: 0.0,
             rot: 0.0,
         }
+    }
+
+    fn cos_math(&mut self, m: f64) -> f64 {
+        m * (self.rot * RADTODEG).cos()
+    }
+
+    fn sin_math(&mut self, m: f64) -> f64 {
+        m * (self.rot * RADTODEG).sin()
     }
 
     fn rotate(&mut self, deg: f64) {
         self.rot += deg;
     }
 
-    fn set_speed(&mut self, spd: f64) {
-        self.spd = spd;
+    fn accelerate(&mut self, acc: f64) {
+        self.xspd += self.cos_math(acc);
+        self.yspd += self.sin_math(acc);
     }
 
     fn tick(&mut self) {
-        self.x += self.spd * (self.rot * RADTODEG).cos();
-        self.y += self.spd * (self.rot * RADTODEG).sin();
+        self.x += self.xspd;
+        self.y += self.yspd;
     }
 }
 
 fn main() {
     let mut ship = Ship::new();
-    ship.rotate(90.0);
-    ship.set_speed(5.0);
-    ship.tick();
-    println!("{:#?}", ship);
-    ship.tick();
-    println!("{:#?}", ship);
-    ship.tick();
-    println!("{:#?}", ship);
-    ship.rotate(-90.0);
-    ship.tick();
-    println!("{:#?}", ship);
 }
