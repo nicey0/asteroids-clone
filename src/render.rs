@@ -22,8 +22,8 @@ pub fn render(
     );
 }
 
-fn draw_triangle(c: &Context, g: &mut G2d, ta: APoint, tb: APoint, tc: APoint) {
-    for &(q, w) in &[(ta, tb), (tb, tc), (tc, ta)] {
-        line_from_to([1.0, 1.0, 1.0, 1.0], 1.0, q, w, c.transform, g);
+fn draw_polygon(c: &Context, g: &mut G2d, p: Vec<APoint>) {
+    for i in (0..p.len()).step_by(2) {
+        line_from_to([1.0; 4], 1.0, p[i], p[i + 1], c.transform, g);
     }
 }
