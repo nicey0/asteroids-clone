@@ -31,14 +31,7 @@ fn main() {
 
     while let Some(e) = window.next() {
         //print!("\x1B[2J\x1B[1;1H");
-
-        /*
-         * Update
-         */
         update(&mut ship, &mut buls, &mut asts);
-        /*
-         * Render
-         */
         window.draw_2d(&e, |c, g, _| {
             render(&c, g, &mut ship, &mut buls, &mut asts);
         });
