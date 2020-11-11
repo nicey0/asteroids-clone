@@ -13,12 +13,14 @@ pub fn render(
     asts: &mut Vec<Asteroid>,
 ) {
     clear([0.0, 0.0, 0.0, 1.0], g);
-    draw_triangle(
+    draw_polygon(
         c,
         g,
-        [0.0, 1.0],
-        [DIM as f64 / 2.0, DIM as f64],
-        [DIM as f64, 1.0],
+        vec![
+            [0.0, 1.0],
+            [DIM as f64 / 2.0, DIM as f64],
+            [DIM as f64, 1.0],
+        ],
     );
 }
 
