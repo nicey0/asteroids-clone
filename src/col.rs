@@ -7,7 +7,24 @@ pub fn ship_asteroids(ship: &Ship, asts: &[Asteroid; 10]) -> bool {
     for ast in asts.iter() {
         let top: bool = inside_square(
             cos_math(ship.get_size() as f64, 90.0),
-false
+            sin_math(ship.get_size() as f64, 90.0),
+            ast,
+        );
+        let left: bool = inside_square(
+            cos_math(ship.get_size() as f64, 0.0),
+            sin_math(ship.get_size() as f64, 0.0),
+            ast,
+        );
+        let right: bool = inside_square(
+            cos_math(ship.get_size() as f64, 180.0),
+            sin_math(ship.get_size() as f64, 180.0),
+            ast,
+        );
+        if top && left && right {
+            return true;
+        }
+    }
+    false
 }
 
 fn inside_square(x: f64, y: f64, ast: &Asteroid) -> bool {
