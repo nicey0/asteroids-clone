@@ -1,32 +1,38 @@
 use super::asteroid::Asteroid;
+use super::math::*;
 use super::ship::*;
-use super::util::Coord;
+use super::util::*;
 // ship + asteroids
-pub fn el_asts(el: &impl Coord, asts: &[Asteroid; 10]) -> bool {
+pub fn ship_asteroids(ship: &Ship, asts: &[Asteroid; 10]) -> bool {
     for ast in asts.iter() {
-        if el_ast(el, ast) {
-            return true;
-        }
-    }
-    false
+        let top: bool = inside_square(
+            cos_math(ship.get_size() as f64, 90.0),
+false
 }
 
-pub fn el_ast(el: &impl Coord, ast: &Asteroid) -> bool {
-    return if el.get_x() >= ast.get_x()
-        && el.get_x() < ast.get_x() + ast.get_w()
-        && el.get_y() >= ast.get_y()
-        && el.get_y() < ast.get_y() + ast.get_w()
-    {
-        true
-    } else {
-        false
-    };
+fn inside_square(x: f64, y: f64, ast: &Asteroid) -> bool {
+    let sx = ast.get_x();
+    let sy = ast.get_y();
+    let sw = ast.get_w();
+    sx < x && x < sx + sw && sy < y && y < sy + sw
 }
 
 pub fn ast_bullet(bullets: &Vec<Bullet>, asts: &[Asteroid; 10]) -> bool {
     for bul in bullets.iter() {
-        if el_asts(bul, asts) {
-            return true;
+        for ast in asts.iter() {
+            // if asteroid inside circle
+            for p in &[
+                (ast.get_x(), ast.get_y()),
+                (ast.get_x() + ast.get_w(), ast.get_y()),
+                (ast.get_x(), ast.get_y() + ast.get_w()),
+                (ast.get_x() + ast.get_w(), ast.get_y() + ast.get_w()),
+            ] {
+                if ((bul.get_x() - p.0).powf(2.0) + (bul.get_y() - p.1).powf(2.0)).powf(0.5)
+                    < bul.get_rad()
+                {
+                    return true;
+                }
+            }
         }
     }
     false

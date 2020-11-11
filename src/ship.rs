@@ -9,6 +9,7 @@ pub struct Ship {
     xspd: f64,
     yspd: f64,
     rot: f64,
+    size: f64,
 }
 
 impl Ship {
@@ -19,6 +20,7 @@ impl Ship {
             xspd: 0.0,
             yspd: 0.0,
             rot: 0.0,
+            size: 5.0,
         }
     }
 
@@ -45,6 +47,10 @@ impl Ship {
             self.y = 0.0;
         }
     }
+
+    pub fn get_size(&self) -> f64 {
+        self.size
+    }
 }
 
 #[derive(PartialEq, Clone, Copy)]
@@ -53,19 +59,17 @@ pub struct Bullet {
     y: f64,
     xspd: f64,
     yspd: f64,
-    rot: f64,
-    len: f64,
+    rad: f64,
 }
 
 impl Bullet {
     pub fn new(ship: &Ship) -> Self {
         Self {
-            len: BULLEN,
             x: ship.x,
             y: ship.y,
             xspd: ship.xspd + 5.0,
             yspd: ship.yspd + 5.0,
-            rot: ship.rot,
+            rad: BULLEN,
         }
     }
 
@@ -77,6 +81,10 @@ impl Bullet {
             || self.x > DIM as f64 + PADDING as f64
             || self.y < -(PADDING as f64)
             || self.y > DIM as f64 + PADDING as f64)
+    }
+
+    pub fn get_rad(&self) -> f64 {
+        self.rad
     }
 }
 
