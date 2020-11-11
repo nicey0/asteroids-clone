@@ -16,9 +16,9 @@ pub fn render(
     draw_triangle(
         c,
         g,
-        [0.0, 0.0],
+        [0.0, 1.0],
         [DIM as f64 / 2.0, DIM as f64],
-        [DIM as f64, 0.0],
+        [DIM as f64, 1.0],
     );
 }
 
