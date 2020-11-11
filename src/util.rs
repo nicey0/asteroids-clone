@@ -5,10 +5,3 @@ pub trait Coord {
 
 pub type Point = (f64, f64);
 pub type APoint = [f64; 2];
-
-#[derive(PartialEq)]
-pub enum Direction {
-    Collinear,
-    Clockwise,
-    Anticlockwise,
-}
