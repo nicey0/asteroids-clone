@@ -25,7 +25,8 @@ pub fn render(
 }
 
 fn draw_polygon(c: &Context, g: &mut G2d, p: Vec<APoint>) {
-    for i in (0..p.len()).step_by(2) {
-        line_from_to([1.0; 4], 1.0, p[i], p[i + 1], c.transform, g);
+    for i in 0..p.len() - 1 {
+        line_from_to([1.0; 4], 5.0, p[i], p[i + 1], c.transform, g);
     }
+    line_from_to([1.0; 4], 5.0, p[0], p[p.len() - 1], c.transform, g);
 }

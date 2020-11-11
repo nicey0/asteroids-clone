@@ -30,7 +30,7 @@ fn main() {
             .unwrap();
 
     while let Some(e) = window.next() {
-        print!("\x1B[2J\x1B[1;1H");
+        //print!("\x1B[2J\x1B[1;1H");
 
         /*
          * Update
