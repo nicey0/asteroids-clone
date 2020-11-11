@@ -1,5 +1,6 @@
 use super::asteroid::*;
 use super::consts::*;
+use super::math::*;
 use super::ship::*;
 use super::util::*;
 use piston_window::*;
@@ -23,6 +24,6 @@ pub fn render(
 
 fn draw_triangle(c: &Context, g: &mut G2d, ta: APoint, tb: APoint, tc: APoint) {
     for &(q, w) in &[(ta, tb), (tb, tc), (tc, ta)] {
-        line_from_to([1.0, 0.0, 1.0, 1.0], 2.0, q, w, c.transform, g);
+        line_from_to([1.0, 1.0, 1.0, 1.0], 1.0, q, w, c.transform, g);
     }
 }
