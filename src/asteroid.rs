@@ -29,7 +29,7 @@ impl Asteroid {
 
     fn gen_points(x: f64, y: f64, r: f64) -> Vec<APoint> {
         let mut v = Vec::new();
-        let edges = thread_rng().gen_range(4, AST_EDGES);
+        let edges = thread_rng().gen_range(AST_EDGES - 3, AST_EDGES);
         for i in 0..edges {
             let d = thread_rng().gen_range(r * AST_ROUND, r);
             let angle = (360.0 / edges as f64) * i as f64;
