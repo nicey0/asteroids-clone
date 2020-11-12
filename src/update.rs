@@ -32,15 +32,18 @@ pub fn update(
         }
         for bul in buls.iter() {
             if inside_circle(bul.get_x(), bul.get_y(), ast) {
-                //destroy.push(Explosion::new(ast.get_x(), ast.get_y()));
+                for _ in 0..5 {
+                    parts.push(Particle::new(ast.get_x(), ast.get_y()));
+                }
                 *ast = Asteroid::new();
                 return States::Score;
             }
         }
     }
-    for p in parts.iter_mut() {
-        p.tick();
-    }
+    *parts = parts
+        .iter_mut()
+        .filter_map(|part| return if !part.tick() { None } else { Some(*part) })
+        .collect();
     ship.tick();
     *buls = buls
         .iter_mut()

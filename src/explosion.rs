@@ -4,7 +4,7 @@ use super::util::*;
 
 pub type Particles = Vec<Particle>;
 
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 pub struct Particle {
     pub x: f64,
     pub y: f64,
@@ -20,7 +20,7 @@ impl Particle {
             y,
             xspd: thread_rng().gen_range(-1.0, 1.0),
             yspd: thread_rng().gen_range(-1.0, 1.0),
-            timer: 10,
+            timer: 20,
         }
     }
 
