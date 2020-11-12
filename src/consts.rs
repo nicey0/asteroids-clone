@@ -25,7 +25,7 @@ pub const ASTSPD: (f64, f64) = (1.0, 2.0);
 pub const AST_RAD: f64 = PADDING as f64 * 2.0;
 pub const AST_SIZE_VAR: f64 = 0.5;
 pub const AST_EDGES: u8 = 15;
-pub const AST_COUNT: u8 = 5;
+pub const AST_COUNT: usize = 5;
 pub const AST_ROUND: f64 = 0.4;
 
 // math
