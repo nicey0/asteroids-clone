@@ -22,6 +22,9 @@ fn main() {
     let mut ship = Ship::new(12.0);
     let mut p = Pressed::new();
     let mut asts: Vec<Asteroid> = Vec::new();
+    for _ in 0..10 {
+        asts.push(Asteroid::new());
+    }
     let mut buls: Vec<Bullet> = Vec::new();
     let mut window: PistonWindow =
         WindowSettings::new("Asteroids clone much better than meesocks'", [DIM; 2])
