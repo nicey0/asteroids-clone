@@ -29,14 +29,24 @@ fn main() {
             .build()
             .unwrap();
     window.set_ups(20);
-
-    //ship.rotate(45.0);
-    ship.accelerate(1.0);
     while let Some(e) = window.next() {
         print!("\x1B[2J\x1B[1;1H");
+        println!("{:?}", ship.get_speed());
         update(&mut ship, &mut buls, &mut asts);
         window.draw_2d(&e, |c, g, _| {
             render(&c, g, &mut ship, &mut buls, &mut asts);
         });
+        if let Some(b) = e.press_args() {
+            match b {
+                Button::Keyboard(key) => match key {
+                    Key::D => ship.rotate(10.0),
+                    Key::A => ship.rotate(-10.0),
+                    Key::W => ship.accelerate(2.0),
+                    Key::Space => ship.accelerate(5.0),
+                    _ => {}
+                },
+                _ => {}
+            }
+        }
     }
 }

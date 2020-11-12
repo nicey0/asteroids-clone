@@ -33,6 +33,16 @@ impl Ship {
     pub fn accelerate(&mut self, acc: f64) {
         self.xspd += cos_math(acc, self.rot);
         self.yspd += sin_math(acc, self.rot);
+        if self.xspd >= MAXSPEED {
+            self.xspd = MAXSPEED;
+        } else if self.xspd <= -MAXSPEED {
+            self.xspd = -MAXSPEED;
+        }
+        if self.yspd >= MAXSPEED {
+            self.yspd = MAXSPEED;
+        } else if self.yspd <= -MAXSPEED {
+            self.yspd = -MAXSPEED;
+        }
     }
 
     pub fn get_points(&self) -> [APoint; 4] {
@@ -70,6 +80,10 @@ impl Ship {
 
     pub fn get_size(&self) -> f64 {
         self.size
+    }
+
+    pub fn get_speed(&self) -> (f64, f64) {
+        (self.xspd, self.yspd)
     }
 }
 

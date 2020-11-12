@@ -13,7 +13,6 @@ pub fn render(
     asts: &mut Vec<Asteroid>,
 ) {
     clear([0.0, 0.0, 0.0, 1.0], g);
-    println!("{}, {}", ship.get_x(), ship.get_y());
     draw_polygon(c, g, 0.4, ship.get_points().to_vec());
 }
 
