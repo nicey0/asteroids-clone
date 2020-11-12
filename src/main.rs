@@ -43,8 +43,8 @@ fn main() {
         .load_font("fonts/november.ttf")
         .expect("error loading font!");
     while let Some(e) = window.next() {
-        print!("\x1B[2J\x1B[1;1H"); // clear screen
-        println!("{}, {}", mx, my);
+        //print!("\x1B[2J\x1B[1;1H"); // clear screen
+        //println!("{}, {}", mx, my);
         if let Some(_) = e.update_args() {
             match update(&mut ship, &p, &mut buls, &mut asts) {
                 States::GameOver => break,

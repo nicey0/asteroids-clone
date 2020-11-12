@@ -10,6 +10,7 @@ pub fn update(
     buls: &mut Vec<Bullet>,
     asts: &mut Vec<Asteroid>,
 ) -> States {
+    let sp = &ship.get_points();
     if p.a {
         ship.rotate(-ROTSPEED * 0.8);
     } else if p.d {
@@ -19,8 +20,11 @@ pub fn update(
         ship.accelerate(ACCSPEED / 0.8);
     }
     for ast in asts.iter() {
-        if ship_in_asteroid(ship, ast) {
-            return States::GameOver;
+        if ship_in_asteroid_circle(sp, ast) {
+            println!("CIRCLE");
+            if ship_in_asteroid(sp, ast) {
+                return States::GameOver;
+            }
         }
     }
     for bul in buls.iter_mut() {

@@ -23,14 +23,23 @@ fn distance_points(x: f64, sx: f64, y: f64, sy: f64) -> f64 {
     ((x - sx).powf(2.0) + (y - sy).powf(2.0)).powf(0.5)
 }
 
-pub fn ship_in_asteroid(ship: &Ship, ast: &Asteroid) -> bool {
-    let ship_lines = get_lines(&ship.get_points().to_vec());
+pub fn ship_in_asteroid(ship_p: &[[f64; 2]; 4], ast: &Asteroid) -> bool {
+    let ship_lines = get_lines(&ship_p.to_vec());
     let ast_lines = get_lines(&ast.get_points());
     for &l1 in ship_lines.iter() {
         for &l2 in ast_lines.iter() {
             if lines_intersect(l1, l2) {
                 return true;
             }
+        }
+    }
+    false
+}
+
+pub fn ship_in_asteroid_circle(ship_p: &[[f64; 2]; 4], ast: &Asteroid) -> bool {
+    for p in ship_p.iter() {
+        if inside_circle(p[0], p[1], ast) {
+            return true;
         }
     }
     false
