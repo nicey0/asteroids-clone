@@ -2,6 +2,8 @@ use rand::{thread_rng, Rng};
 
 use super::util::*;
 
+pub type Explosion = Vec<Particle>;
+
 #[derive(Clone)]
 pub struct Particle {
     pub x: f64,
@@ -21,47 +23,21 @@ impl Particle {
             timer: 10,
         }
     }
-}
 
-pub struct Explosion {
-    x: f64,
-    y: f64,
-    pub parts: Vec<Particle>,
-}
-
-impl Explosion {
-    pub fn new(x: f64, y: f64) -> Self {
-        Self {
-            x,
-            y,
-            parts: Self::gen_parts(x, y),
+    pub fn tick(&mut self) -> bool {
+        return if self.timer == 0 {
+            false
+        } else {
+            self.x += self.xspd;
+            self.y += self.yspd;
+            self.timer -= 1;
+            true
         }
     }
-
-    fn gen_parts(x: f64, y: f64) -> Vec<Particle> {
-        let mut v: Vec<Particle> = Vec::new();
-        for _ in 0..15 {
-            v.push(Particle::new(x, y));
-        }
-        v
-    }
-
-    pub fn get_parts(&self) -> &Vec<Particle> {
-        &self.parts
-    }
 }
+
 
 impl Coord for Particle {
-    fn get_x(&self) -> f64 {
-        self.x
-    }
-
-    fn get_y(&self) -> f64 {
-        self.y
-    }
-}
-
-impl Coord for Explosion {
     fn get_x(&self) -> f64 {
         self.x
     }
