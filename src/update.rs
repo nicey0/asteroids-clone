@@ -14,13 +14,18 @@ pub fn update(
     } else if p.d {
         ship.rotate(1);
     }
-    for point in &ship.get_points() {
-        for ast in asts.iter() {
-            if inside_circle(point[0], point[1], ast) {
-                return States::GameOver;
-            }
+    for ast in asts.iter() {
+        if ship_in_asteroid(ship, ast) {
+            return States::GameOver;
         }
     }
+    //for point in &ship.get_points() {
+    //for ast in asts.iter() {
+    //if inside_circle(point[0], point[1], ast) {
+    //return States::GameOver;
+    //}
+    //}
+    //}
     for bul in buls.iter_mut() {
         for ast in asts.iter_mut() {
             if inside_circle(bul.get_x(), bul.get_y(), ast) {

@@ -41,16 +41,7 @@ fn main() {
         .load_font("fonts/FiraSans-Regular.ttf")
         .expect("error loading font!");
     while let Some(e) = window.next() {
-        print!("\x1B[2J\x1B[1;1H");
-        //println!("{:?}", ship.get_speed());
-        match update(&mut ship, &p, &mut buls, &mut asts) {
-            States::GameOver => break,
-            States::Score => score += 10,
-            States::Nothing => {}
-        };
-        if cooldown > 0 {
-            cooldown -= 1;
-        }
+        print!("\x1B[2J\x1B[1;1H"); // clear screen
         window.draw_2d(&e, |c, g, dev| {
             render(&c, g, &mut ship, &mut buls, &mut asts);
             Text::new_color([1.0; 4], FSIZE)
@@ -94,6 +85,14 @@ fn main() {
                     }
                 }
             }
+        }
+        match update(&mut ship, &p, &mut buls, &mut asts) {
+            States::GameOver => break,
+            States::Score => score += 10,
+            States::Nothing => {}
+        };
+        if cooldown > 0 {
+            cooldown -= 1;
         }
     }
 }

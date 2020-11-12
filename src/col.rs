@@ -23,7 +23,27 @@ fn distance_points(x: f64, sx: f64, y: f64, sy: f64) -> f64 {
     ((x - sx).powf(2.0) + (y - sy).powf(2.0)).powf(0.5)
 }
 
-pub fn ship_in_asteroid(ship: &Ship, ast: &Asteroid) {}
+pub fn ship_in_asteroid(ship: &Ship, ast: &Asteroid) -> bool {
+    let ship_lines = get_lines(&ship.get_points().to_vec());
+    let ast_lines = get_lines(&ast.get_points());
+    for &l1 in ship_lines.iter() {
+        for &l2 in ast_lines.iter() {
+            if lines_intersect(l1, l2) {
+                return true;
+            }
+        }
+    }
+    false
+}
+
+fn get_lines(points: &Vec<APoint>) -> Vec<(APoint, APoint)> {
+    let mut lines: Vec<(APoint, APoint)> = Vec::new();
+    for i in 0..points.len() - 1 {
+        lines.push((points[i], points[i + 1]));
+    }
+    lines.push((points[points.len() - 1], points[0]));
+    lines
+}
 
 pub fn lines_intersect(l1: (APoint, APoint), l2: (APoint, APoint)) -> bool {
     let o1 = orientation(l1.0, l1.1, l2.0);
