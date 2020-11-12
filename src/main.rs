@@ -22,6 +22,8 @@ fn main() {
     let mut asts: Vec<Asteroid> = Vec::new();
     let mut cooldown = 0;
     let mut score = 0;
+    let mut mx = 0.0;
+    let mut my = 0.0;
 
     for _ in 0..AST_COUNT {
         asts.push(Asteroid::new());
@@ -42,6 +44,7 @@ fn main() {
         .expect("error loading font!");
     while let Some(e) = window.next() {
         print!("\x1B[2J\x1B[1;1H"); // clear screen
+        println!("{}, {}", mx, my);
         if let Some(_) = e.update_args() {
             match update(&mut ship, &p, &mut buls, &mut asts) {
                 States::GameOver => break,
@@ -66,6 +69,9 @@ fn main() {
                     .expect("error drawing text!");
                 glyphs.factory.encoder.flush(dev);
             });
+        } else if let Some(coor) = e.mouse_cursor_args() {
+            mx = coor[0];
+            my = coor[1];
         } else if let Some(b) = e.button_args() {
             match b.state {
                 ButtonState::Press => {
