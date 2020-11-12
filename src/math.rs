@@ -13,9 +13,12 @@ pub fn sin_math(m: f64, rot: f64) -> f64 {
 }
 
 // collision math
-fn inside_square(x: f64, y: f64, ast: &Asteroid) -> bool {
+fn inside_circle(x: f64, y: f64, ast: &Asteroid) -> bool {
     let sx = ast.get_x();
     let sy = ast.get_y();
-    let sw = ast.get_w();
-    sx < x && x < sx + sw && sy < y && y < sy + sw
+    let sr = ast.get_r();
+    if ((x - sx).powf(2.0) + (y - sy).powf(2.0)).powf(0.5) <= sr {
+        return true;
+    }
+    false
 }

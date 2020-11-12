@@ -13,6 +13,7 @@ mod ship;
 mod update;
 mod util;
 use asteroid::Asteroid;
+use math::*;
 use render::*;
 use ship::*;
 use update::*;

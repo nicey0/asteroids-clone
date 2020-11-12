@@ -9,7 +9,7 @@ pub struct Asteroid {
     y: f64,
     xspd: f64,
     yspd: f64,
-    w: f64,
+    r: f64,
     points: Vec<APoint>,
 }
 
@@ -21,16 +21,16 @@ impl Asteroid {
             y,
             xspd,
             yspd,
-            w: 30.0,
+            r: 30.0,
             points: Self::gen_points(x, y, 30.0),
         }
     }
 
-    fn gen_points(x: f64, y: f64, w: f64) -> Vec<APoint> {
+    fn gen_points(x: f64, y: f64, r: f64) -> Vec<APoint> {
         let mut v = Vec::new();
         let edges = thread_rng().gen_range(5, AST_EDGES);
         for i in 0..edges {
-            let d = thread_rng().gen_range(w / 2.0, w);
+            let d = thread_rng().gen_range(r / 2.0, r);
             let angle = (360.0 / edges as f64) * i as f64;
             let px = cos_math(d, angle);
             let py = sin_math(d, angle);
@@ -84,8 +84,8 @@ impl Asteroid {
         self.y
     }
 
-    pub fn get_w(&self) -> f64 {
-        self.w
+    pub fn get_r(&self) -> f64 {
+        self.r
     }
 
     pub fn get_points(&self) -> &Vec<APoint> {
