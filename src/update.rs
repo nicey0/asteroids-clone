@@ -17,6 +17,13 @@ pub fn update(ship: &mut Ship, p: &Pressed, buls: &mut Vec<Bullet>, asts: &mut V
             }
         }
     }
+    for bul in buls.iter_mut() {
+        for ast in asts.iter_mut() {
+            if inside_circle(bul.get_x(), bul.get_y(), ast) {
+                *ast = Asteroid::new();
+            };
+        }
+    }
     if p.w {
         ship.accelerate(0.005);
     }

@@ -16,13 +16,14 @@ pub struct Asteroid {
 impl Asteroid {
     pub fn new() -> Self {
         let ((x, xspd), (y, yspd)) = Self::get_random_xy();
+        let r = rand_r();
         Self {
             x,
             y,
             xspd,
             yspd,
-            r: 30.0,
-            points: Self::gen_points(x, y, 30.0),
+            r,
+            points: Self::gen_points(x, y, r),
         }
     }
 
@@ -101,6 +102,10 @@ fn get_random_dir(min: f64, max: f64, spdm: f64) -> (f64, f64) {
 
 fn rand_mid() -> f64 {
     thread_rng().gen_range(0.0, DIM as f64 / 2.0)
+}
+
+fn rand_r() -> f64 {
+    thread_rng().gen_range(AST_RAD * 0.6, AST_RAD)
 }
 
 fn random_spd() -> f64 {
