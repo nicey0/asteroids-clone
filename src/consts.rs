@@ -10,4 +10,4 @@ pub const BULLEN: f64 = 5.0;
 
 pub const RADTODEG: f64 = 2.0 * (PI / 360.0);
 
-pub const MAXSPEED: f64 = 3.0;
+pub const MAXSPEED: f64 = 1.0;

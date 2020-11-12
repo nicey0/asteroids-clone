@@ -1,8 +1,17 @@
 use super::asteroid::*;
 use super::math::*;
 use super::ship::*;
+use super::util::*;
 
-pub fn update(ship: &mut Ship, buls: &mut Vec<Bullet>, asts: &mut Vec<Asteroid>) {
+pub fn update(ship: &mut Ship, p: &Pressed, buls: &mut Vec<Bullet>, asts: &mut Vec<Asteroid>) {
+    if p.a {
+        ship.rotate(-1);
+    } else if p.d {
+        ship.rotate(1);
+    }
+    if p.w {
+        ship.accelerate(0.005);
+    }
     tick_stuff(ship, buls, asts);
 }
 

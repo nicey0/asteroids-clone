@@ -8,7 +8,7 @@ pub struct Ship {
     y: f64,
     xspd: f64,
     yspd: f64,
-    rot: f64,
+    rot: i32,
     size: f64,
     front: f64,
 }
@@ -20,19 +20,19 @@ impl Ship {
             y: DIM as f64 / 2.0,
             xspd: 0.0,
             yspd: 0.0,
-            rot: 0.0,
+            rot: 0,
             size: size,
             front: size * 3.0,
         }
     }
 
-    pub fn rotate(&mut self, deg: f64) {
+    pub fn rotate(&mut self, deg: i32) {
         self.rot += deg;
     }
 
     pub fn accelerate(&mut self, acc: f64) {
-        self.xspd += cos_math(acc, self.rot);
-        self.yspd += sin_math(acc, self.rot);
+        self.xspd += cos_math(acc, self.rot as f64);
+        self.yspd += sin_math(acc, self.rot as f64);
         if self.xspd >= MAXSPEED {
             self.xspd = MAXSPEED;
         } else if self.xspd <= -MAXSPEED {
@@ -48,17 +48,20 @@ impl Ship {
     pub fn get_points(&self) -> [APoint; 4] {
         [
             [
-                self.x + cos_math(self.size, self.rot - 50.0),
-                self.y + sin_math(self.size, self.rot - 50.0),
-            ],
-            [self.x, self.y],
-            [
-                self.x + cos_math(self.size, self.rot + 50.0),
-                self.y + sin_math(self.size, self.rot + 50.0),
+                self.x + cos_math(self.size, (self.rot - 90) as f64),
+                self.y + sin_math(self.size, (self.rot - 90) as f64),
             ],
             [
-                self.x + cos_math(self.front, self.rot),
-                self.y + sin_math(self.front, self.rot),
+                self.x + cos_math(self.size, (self.rot - 180) as f64),
+                self.y + sin_math(self.size, (self.rot - 180) as f64),
+            ],
+            [
+                self.x + cos_math(self.size, (self.rot + 90) as f64),
+                self.y + sin_math(self.size, (self.rot + 90) as f64),
+            ],
+            [
+                self.x + cos_math(self.front, self.rot as f64),
+                self.y + sin_math(self.front, self.rot as f64),
             ],
         ]
     }
