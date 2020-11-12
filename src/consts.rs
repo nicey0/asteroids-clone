@@ -8,7 +8,7 @@ pub const PADDING: u32 = 30;
 pub const LINEW: f64 = 0.4;
 
 // speed
-pub const MAXSPEED: f64 = 1.5;
+pub const MAXSPEED: f64 = 100.0;
 pub const ASTSPD: (f64, f64) = (0.2, 0.6);
 pub const BULSPD: f64 = 2.5;
 pub const BULCOOLDOWN: u8 = 30;

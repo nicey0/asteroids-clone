@@ -37,7 +37,7 @@ fn main() {
     window.set_ups(30);
 
     let mut glyphs = window
-        .load_font("fonts/FiraSans-Regular.ttf")
+        .load_font("fonts/november.ttf")
         .expect("error loading font!");
     while let Some(e) = window.next() {
         print!("\x1B[2J\x1B[1;1H"); // clear screen
