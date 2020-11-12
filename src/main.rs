@@ -34,28 +34,39 @@ fn main() {
             .decorated(true)
             .build()
             .unwrap();
-    window.set_ups(30);
+    window.set_ups(60);
+    window.set_max_fps(60);
 
     let mut glyphs = window
         .load_font("fonts/november.ttf")
         .expect("error loading font!");
     while let Some(e) = window.next() {
         print!("\x1B[2J\x1B[1;1H"); // clear screen
-        window.draw_2d(&e, |c, g, dev| {
-            render(&c, g, &mut ship, &mut buls, &mut asts);
-            Text::new_color([1.0; 4], FSIZE)
-                .draw(
-                    &format!("Score: {}", score),
-                    &mut glyphs,
-                    &c.draw_state,
-                    c.transform
-                        .trans(PADDING as f64 / 3.0, FSIZE as f64 + (PADDING as f64 / 3.0)),
-                    g,
-                )
-                .expect("error drawing text!");
-            glyphs.factory.encoder.flush(dev);
-        });
-        if let Some(b) = e.button_args() {
+        if let Some(_) = e.update_args() {
+            match update(&mut ship, &p, &mut buls, &mut asts) {
+                States::GameOver => break,
+                States::Score => score += 10,
+                States::Nothing => {}
+            };
+            if cooldown > 0 {
+                cooldown -= 1;
+            }
+        } else if let Some(_) = e.render_args() {
+            window.draw_2d(&e, |c, g, dev| {
+                render(&c, g, &mut ship, &mut buls, &mut asts);
+                Text::new_color([1.0; 4], FSIZE)
+                    .draw(
+                        &format!("Score: {}", score),
+                        &mut glyphs,
+                        &c.draw_state,
+                        c.transform
+                            .trans(PADDING as f64 / 3.0, FSIZE as f64 + (PADDING as f64 / 3.0)),
+                        g,
+                    )
+                    .expect("error drawing text!");
+                glyphs.factory.encoder.flush(dev);
+            });
+        } else if let Some(b) = e.button_args() {
             match b.state {
                 ButtonState::Press => {
                     if let Button::Keyboard(k) = b.button {
@@ -84,14 +95,6 @@ fn main() {
                     }
                 }
             }
-        }
-        match update(&mut ship, &p, &mut buls, &mut asts) {
-            States::GameOver => break,
-            States::Score => score += 10,
-            States::Nothing => {}
-        };
-        if cooldown > 0 {
-            cooldown -= 1;
         }
     }
 }
