@@ -13,8 +13,8 @@ pub const FSIZE: u32 = 22;
 
 // ship
 pub const MAXSPEED: f64 = 100.0;
-pub const ACCSPEED: f64 = 0.05;
-pub const ROTSPEED: i32 = 3;
+pub const ACCSPEED: f64 = 0.08;
+pub const ROTSPEED: i32 = 4;
 
 // bullets
 pub const BULCOOLDOWN: u8 = 15;
