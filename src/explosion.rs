@@ -2,12 +2,12 @@ use rand::{thread_rng, Rng};
 
 use super::util::*;
 
-#[derive(Clone, Copy)]
+#[derive(Clone)]
 pub struct Particle {
-    x: f64,
-    y: f64,
-    xspd: f64,
-    yspd: f64,
+    pub x: f64,
+    pub y: f64,
+    pub xspd: f64,
+    pub yspd: f64,
     timer: u8,
 }
 
@@ -16,9 +16,9 @@ impl Particle {
         Self {
             x,
             y,
-            xspd: thread_rng().gen_range(-2.0, 2.0),
-            yspd: thread_rng().gen_range(-2.0, 2.0),
-            timer: 15,
+            xspd: thread_rng().gen_range(-1.0, 1.0),
+            yspd: thread_rng().gen_range(-1.0, 1.0),
+            timer: 10,
         }
     }
 }
@@ -26,7 +26,7 @@ impl Particle {
 pub struct Explosion {
     x: f64,
     y: f64,
-    parts: [Particle; 15]
+    pub parts: Vec<Particle>,
 }
 
 impl Explosion {
@@ -34,12 +34,30 @@ impl Explosion {
         Self {
             x,
             y,
-            parts: [Particle::new(x, y); 15],
+            parts: Self::gen_parts(x, y),
         }
     }
 
-    pub fn get_parts(&self) -> [Particle; 15] {
-        self.parts
+    fn gen_parts(x: f64, y: f64) -> Vec<Particle> {
+        let mut v: Vec<Particle> = Vec::new();
+        for _ in 0..15 {
+            v.push(Particle::new(x, y));
+        }
+        v
+    }
+
+    pub fn get_parts(&self) -> &Vec<Particle> {
+        &self.parts
+    }
+}
+
+impl Coord for Particle {
+    fn get_x(&self) -> f64 {
+        self.x
+    }
+
+    fn get_y(&self) -> f64 {
+        self.y
     }
 }
 

@@ -3,12 +3,14 @@ use super::col::*;
 use super::consts::*;
 use super::ship::*;
 use super::util::*;
+use super::explosion::*;
 
 pub fn update(
     ship: &mut Ship,
     p: &Pressed,
     buls: &mut Vec<Bullet>,
     asts: &mut Vec<Asteroid>,
+    destroy: &mut Vec<Explosion>,
 ) -> States {
     let sp = &ship.get_points();
     if p.a {
@@ -30,9 +32,17 @@ pub fn update(
     for bul in buls.iter_mut() {
         for ast in asts.iter_mut() {
             if inside_circle(bul.get_x(), bul.get_y(), ast) {
+                destroy.push(Explosion::new(ast.get_x(), ast.get_y()));
                 *ast = Asteroid::new();
                 return States::Score;
             };
+        }
+    }
+    for exp in destroy.iter_mut() {
+        for part in exp.parts.iter_mut(){
+            println!("{}, {} : {}, {}", part.x, part.y, part.xspd, part.yspd);
+            part.x += part.xspd;
+            part.y += part.yspd;
         }
     }
     tick_stuff(ship, buls, asts);

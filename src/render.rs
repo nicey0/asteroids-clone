@@ -2,6 +2,7 @@ use super::asteroid::*;
 use super::consts::*;
 use super::ship::*;
 use super::util::*;
+use super::explosion::*;
 use piston_window::*;
 
 pub fn render(
@@ -10,6 +11,7 @@ pub fn render(
     ship: &mut Ship,
     buls: &mut Vec<Bullet>,
     asts: &mut Vec<Asteroid>,
+    destroy: &Vec<Explosion>,
 ) {
     clear([0.0, 0.0, 0.0, 1.0], g);
     draw_polygon(c, g, LINEW, ship.get_points().to_vec());
@@ -24,14 +26,24 @@ pub fn render(
             g,
         );
     }
+    let b = ellipse::Ellipse::new_border([1.0; 4], LINEW);
     for bul in buls.iter() {
-        let b = ellipse::Ellipse::new_border([1.0; 4], LINEW);
         b.draw(
             ellipse::circle(bul.get_x(), bul.get_y(), bul.get_r()),
             &DrawState::default(),
             c.transform,
             g,
         );
+    }
+    for ds in destroy.iter() {
+        for p in ds.get_parts().iter() {
+            b.draw(
+                ellipse::circle(p.get_x(), p.get_y(), 0.5),
+                &DrawState::default(),
+                c.transform,
+                g,
+            );
+        }
     }
 }
 
