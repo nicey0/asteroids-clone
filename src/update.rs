@@ -21,30 +21,29 @@ pub fn update(
     if p.w {
         ship.accelerate(ACCSPEED / 0.8);
     }
-    for ast in asts.iter() {
+    for ast in asts.iter_mut() {
+        if !ast.tick() {
+            *ast = Asteroid::new();
+        };
         if ship_in_asteroid_circle(sp, ast) {
-            println!("CIRCLE");
             if ship_in_asteroid(sp, ast) {
                 return States::GameOver;
             }
         }
-    }
-    for bul in buls.iter_mut() {
-        for ast in asts.iter_mut() {
+        for bul in buls.iter() {
             if inside_circle(bul.get_x(), bul.get_y(), ast) {
-                destroy.push(Explosion::new(ast.get_x(), ast.get_y()));
+                //destroy.push(Explosion::new(ast.get_x(), ast.get_y()));
                 *ast = Asteroid::new();
                 return States::Score;
-            };
+            }
         }
     }
-    for exp in destroy.iter_mut() {
-        for part in exp.parts.iter_mut(){
-            println!("{}, {} : {}, {}", part.x, part.y, part.xspd, part.yspd);
-            part.x += part.xspd;
-            part.y += part.yspd;
-        }
-    }
+    //for exp in destroy.iter_mut() {
+        //for part in exp.parts.iter_mut(){
+            //part.x += part.xspd;
+            //part.y += part.yspd;
+        //}
+    //}
     tick_stuff(ship, buls, asts);
     States::Nothing
 }
@@ -55,9 +54,4 @@ fn tick_stuff(ship: &mut Ship, buls: &mut Vec<Bullet>, asts: &mut Vec<Asteroid>)
         .iter_mut()
         .filter_map(|bul| return if !bul.tick() { None } else { Some(*bul) })
         .collect();
-    for ast in asts.iter_mut() {
-        if !ast.tick() {
-            *ast = Asteroid::new();
-        };
-    }
 }
