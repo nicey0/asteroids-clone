@@ -13,6 +13,7 @@ mod ship;
 mod update;
 mod util;
 use asteroid::Asteroid;
+use col::*;
 use math::*;
 use render::*;
 use ship::*;
@@ -23,6 +24,16 @@ fn main() {
     let mut ship = Ship::new(12.0);
     let mut p = Pressed::new();
     let mut asts: Vec<Asteroid> = Vec::new();
+
+    assert_eq!(
+        lines_intersect(([0.0, 0.0], [10.0, 10.0]), ([5.0, 5.0], [15.0, 5.0])),
+        true
+    );
+    assert_eq!(
+        lines_intersect(([0.0, 0.0], [0.0, 10.0]), ([5.0, 5.0], [15.0, 5.0])),
+        false
+    );
+
     for _ in 0..AST_COUNT {
         asts.push(Asteroid::new());
     }

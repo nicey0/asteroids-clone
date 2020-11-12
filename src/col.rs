@@ -10,30 +10,7 @@ enum Ori {
 
 pub fn point_in_polygon(p1: &APoint, poly: &Vec<APoint>) {}
 
-fn on_segment(p: APoint, q: APoint, r: APoint) -> bool {
-    if q[0] <= p[0].max(r[0])
-        && q[0] >= p[0].min(r[0])
-        && q[1] <= p[1].max(r[1])
-        && q[1] >= p[1].min(r[1])
-    {
-        return true;
-    }
-    false
-}
-
-fn orientation(p: APoint, q: APoint, r: APoint) -> Ori {
-    let val = (q[1] - p[1]) * (r[0] - q[0]) - (q[0] - p[0]) * (r[1] - q[1]);
-
-    return if -0.01 <= val && val <= 0.01 {
-        Ori::Collinear
-    } else if val > 0.01 {
-        Ori::Clock
-    } else {
-        Ori::Anticlock
-    };
-}
-
-fn lines_intersect(l1: (APoint, APoint), l2: (APoint, APoint)) -> bool {
+pub fn lines_intersect(l1: (APoint, APoint), l2: (APoint, APoint)) -> bool {
     let o1 = orientation(l1.0, l1.1, l2.0);
     let o2 = orientation(l1.0, l1.1, l2.1);
     let o3 = orientation(l2.0, l2.1, l1.0);
@@ -59,4 +36,27 @@ fn lines_intersect(l1: (APoint, APoint), l2: (APoint, APoint)) -> bool {
         return true;
     };
     false
+}
+
+fn on_segment(p: APoint, q: APoint, r: APoint) -> bool {
+    if q[0] <= p[0].max(r[0])
+        && q[0] >= p[0].min(r[0])
+        && q[1] <= p[1].max(r[1])
+        && q[1] >= p[1].min(r[1])
+    {
+        return true;
+    }
+    false
+}
+
+fn orientation(p: APoint, q: APoint, r: APoint) -> Ori {
+    let val = (q[1] - p[1]) * (r[0] - q[0]) - (q[0] - p[0]) * (r[1] - q[1]);
+
+    return if -0.01 <= val && val <= 0.01 {
+        Ori::Collinear
+    } else if val > 0.01 {
+        Ori::Clock
+    } else {
+        Ori::Anticlock
+    };
 }
