@@ -11,12 +11,12 @@ pub fn update(
     asts: &mut Vec<Asteroid>,
 ) -> States {
     if p.a {
-        ship.rotate(-ROTSPEED);
+        ship.rotate(-ROTSPEED * 0.8);
     } else if p.d {
-        ship.rotate(ROTSPEED);
+        ship.rotate(ROTSPEED * 0.8);
     }
     if p.w {
-        ship.accelerate(ACCSPEED);
+        ship.accelerate(ACCSPEED / 0.8);
     }
     for ast in asts.iter() {
         if ship_in_asteroid(ship, ast) {

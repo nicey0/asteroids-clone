@@ -105,7 +105,7 @@ fn rand_mid() -> f64 {
 }
 
 fn rand_r() -> f64 {
-    thread_rng().gen_range(AST_RAD * 0.6, AST_RAD)
+    thread_rng().gen_range(AST_RAD * AST_SIZE_VAR, AST_RAD)
 }
 
 fn random_spd() -> f64 {
