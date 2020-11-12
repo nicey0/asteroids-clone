@@ -4,7 +4,12 @@ use super::math::*;
 use super::ship::*;
 use super::util::*;
 
-pub fn update(ship: &mut Ship, p: &Pressed, buls: &mut Vec<Bullet>, asts: &mut Vec<Asteroid>) {
+pub fn update(
+    ship: &mut Ship,
+    p: &Pressed,
+    buls: &mut Vec<Bullet>,
+    asts: &mut Vec<Asteroid>,
+) -> States {
     if p.a {
         ship.rotate(-1);
     } else if p.d {
@@ -13,7 +18,7 @@ pub fn update(ship: &mut Ship, p: &Pressed, buls: &mut Vec<Bullet>, asts: &mut V
     for point in &ship.get_points() {
         for ast in asts.iter() {
             if inside_circle(point[0], point[1], ast) {
-                println!("AAAAAAAAAAAAAAA");
+                return States::GameOver;
             }
         }
     }
@@ -21,6 +26,7 @@ pub fn update(ship: &mut Ship, p: &Pressed, buls: &mut Vec<Bullet>, asts: &mut V
         for ast in asts.iter_mut() {
             if inside_circle(bul.get_x(), bul.get_y(), ast) {
                 *ast = Asteroid::new();
+                return States::Score;
             };
         }
     }
@@ -28,6 +34,7 @@ pub fn update(ship: &mut Ship, p: &Pressed, buls: &mut Vec<Bullet>, asts: &mut V
         ship.accelerate(0.005);
     }
     tick_stuff(ship, buls, asts);
+    States::Nothing
 }
 
 fn tick_stuff(ship: &mut Ship, buls: &mut Vec<Bullet>, asts: &mut Vec<Asteroid>) {

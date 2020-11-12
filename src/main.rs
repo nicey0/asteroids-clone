@@ -25,6 +25,7 @@ fn main() {
     let mut p = Pressed::new();
     let mut asts: Vec<Asteroid> = Vec::new();
     let mut cooldown = 0;
+    let mut score = 0;
 
     for _ in 0..AST_COUNT {
         asts.push(Asteroid::new());
@@ -38,16 +39,34 @@ fn main() {
             .build()
             .unwrap();
     window.set_ups(30);
-    ship.rotate(-45);
+
+    let mut glyphs = window
+        .load_font("fonts/FiraSans-Regular.ttf")
+        .expect("error loading font!");
     while let Some(e) = window.next() {
         print!("\x1B[2J\x1B[1;1H");
         //println!("{:?}", ship.get_speed());
-        update(&mut ship, &p, &mut buls, &mut asts);
+        match update(&mut ship, &p, &mut buls, &mut asts) {
+            States::GameOver => break,
+            States::Score => score += 10,
+            States::Nothing => {}
+        };
         if cooldown > 0 {
             cooldown -= 1;
         }
-        window.draw_2d(&e, |c, g, _| {
+        window.draw_2d(&e, |c, g, dev| {
             render(&c, g, &mut ship, &mut buls, &mut asts);
+            Text::new_color([1.0; 4], FSIZE)
+                .draw(
+                    &format!("Score: {}", score),
+                    &mut glyphs,
+                    &c.draw_state,
+                    c.transform
+                        .trans(PADDING as f64 / 3.0, FSIZE as f64 + (PADDING as f64 / 3.0)),
+                    g,
+                )
+                .expect("error drawing text!");
+            glyphs.factory.encoder.flush(dev);
         });
         if let Some(b) = e.button_args() {
             match b.state {

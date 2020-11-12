@@ -15,6 +15,7 @@ pub const BULCOOLDOWN: u8 = 30;
 
 // size
 pub const BULRAD: f64 = 2.0;
+pub const FSIZE: u32 = 22;
 
 // asteroids
 pub const AST_RAD: f64 = 40.0;
