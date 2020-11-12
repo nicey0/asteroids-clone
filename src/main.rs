@@ -39,7 +39,7 @@ fn main() {
     window.set_ups(30);
     ship.rotate(-45);
     while let Some(e) = window.next() {
-        //print!("\x1B[2J\x1B[1;1H");
+        print!("\x1B[2J\x1B[1;1H");
         //println!("{:?}", ship.get_speed());
         update(&mut ship, &p, &mut buls, &mut asts);
         window.draw_2d(&e, |c, g, _| {
@@ -53,6 +53,7 @@ fn main() {
                             Key::D => p.d = true,
                             Key::A => p.a = true,
                             Key::W => p.w = true,
+                            Key::Space => buls.push(Bullet::new(&ship)),
                             _ => {}
                         }
                     }

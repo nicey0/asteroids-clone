@@ -96,17 +96,17 @@ pub struct Bullet {
     y: f64,
     xspd: f64,
     yspd: f64,
-    rad: f64,
+    r: f64,
 }
 
 impl Bullet {
     pub fn new(ship: &Ship) -> Self {
         Self {
-            x: ship.x,
-            y: ship.y,
-            xspd: ship.xspd + 5.0,
-            yspd: ship.yspd + 5.0,
-            rad: BULLEN,
+            x: ship.x + cos_math(ship.size * 3.0, ship.rot as f64),
+            y: ship.y + sin_math(ship.size * 3.0, ship.rot as f64),
+            xspd: ship.xspd + cos_math(BULSPD, ship.rot as f64),
+            yspd: ship.yspd + sin_math(BULSPD, ship.rot as f64),
+            r: BULRAD,
         }
     }
 
@@ -120,8 +120,8 @@ impl Bullet {
             || self.y > DIM as f64 + PADDING as f64)
     }
 
-    pub fn get_rad(&self) -> f64 {
-        self.rad
+    pub fn get_r(&self) -> f64 {
+        self.r
     }
 }
 

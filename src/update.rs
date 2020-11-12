@@ -1,4 +1,5 @@
 use super::asteroid::*;
+use super::col::*;
 use super::math::*;
 use super::ship::*;
 use super::util::*;
@@ -8,6 +9,13 @@ pub fn update(ship: &mut Ship, p: &Pressed, buls: &mut Vec<Bullet>, asts: &mut V
         ship.rotate(-1);
     } else if p.d {
         ship.rotate(1);
+    }
+    for point in &ship.get_points() {
+        for ast in asts.iter() {
+            if inside_circle(point[0], point[1], ast) {
+                println!("AAAAAAAAAAAAAAA");
+            }
+        }
     }
     if p.w {
         ship.accelerate(0.005);

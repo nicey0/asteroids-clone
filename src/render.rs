@@ -16,13 +16,15 @@ pub fn render(
     draw_polygon(c, g, LINEW, ship.get_points().to_vec());
     for ast in asts.iter_mut() {
         draw_polygon(c, g, LINEW, ast.get_points().to_vec());
-        //let b = ellipse::Ellipse::new_border([1.0; 4], LINEW);
-        //b.draw(
-        //ellipse::circle(ast.get_x(), ast.get_y(), ast.get_w()),
-        //&DrawState::default(),
-        //c.transform,
-        //g,
-        //);
+    }
+    for bul in buls.iter() {
+        let b = ellipse::Ellipse::new_border([1.0; 4], LINEW);
+        b.draw(
+            ellipse::circle(bul.get_x(), bul.get_y(), bul.get_r()),
+            &DrawState::default(),
+            c.transform,
+            g,
+        );
     }
 }
 

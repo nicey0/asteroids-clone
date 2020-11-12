@@ -13,7 +13,7 @@ pub const ASTSPD: (f64, f64) = (0.2, 0.6);
 pub const BULSPD: f64 = 3.0;
 
 // size
-pub const BULLEN: f64 = 5.0;
+pub const BULRAD: f64 = 3.0;
 
 // asteroids
 pub const AST_EDGES: u8 = 10;

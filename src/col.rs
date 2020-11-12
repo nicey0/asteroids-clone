@@ -9,18 +9,18 @@ enum Ori {
     Anticlock,
 }
 
-fn distance_points(p1: APoint, p2: APoint) -> f64 {
-    ((p1[0] - p2[0]).powf(2.0) + (p1[1] - p2[1]).powf(2.0)).powf(0.5)
-}
-
-fn inside_circle(x: f64, y: f64, ast: &Asteroid) -> bool {
+pub fn inside_circle(x: f64, y: f64, ast: &Asteroid) -> bool {
     let sx = ast.get_x();
     let sy = ast.get_y();
     let sr = ast.get_r();
-    if distance_points([x, sx], [y, sy]) <= sr {
+    if distance_points(x, sx, y, sy) <= sr {
         return true;
     }
     false
+}
+
+fn distance_points(x: f64, sx: f64, y: f64, sy: f64) -> f64 {
+    ((x - sx).powf(2.0) + (y - sy).powf(2.0)).powf(0.5)
 }
 
 pub fn point_in_polygon(p1: &APoint, poly: &Vec<APoint>) {}
