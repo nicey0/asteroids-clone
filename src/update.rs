@@ -44,14 +44,10 @@ pub fn update(
             //part.y += part.yspd;
         //}
     //}
-    tick_stuff(ship, buls, asts);
-    States::Nothing
-}
-
-fn tick_stuff(ship: &mut Ship, buls: &mut Vec<Bullet>, asts: &mut Vec<Asteroid>) {
     ship.tick();
     *buls = buls
         .iter_mut()
         .filter_map(|bul| return if !bul.tick() { None } else { Some(*bul) })
         .collect();
+    States::Nothing
 }
