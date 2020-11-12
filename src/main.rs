@@ -22,7 +22,7 @@ fn main() {
     let mut ship = Ship::new();
     let mut p = Pressed::new();
     let mut asts: Vec<Asteroid> = Vec::with_capacity(AST_COUNT);
-    let mut destroy: Vec<Explosion> = Vec::with_capacity(AST_COUNT);
+    let mut parts: Particles = Vec::with_capacity(AST_COUNT);
     let mut cooldown = 0;
     let mut score = 0;
     let mut mx = 0.0;
@@ -49,7 +49,7 @@ fn main() {
         //print!("\x1B[2J\x1B[1;1H"); // clear screen
         //println!("{}, {}", mx, my);
         if let Some(_) = e.update_args() {
-            match update(&mut ship, &p, &mut buls, &mut asts, &mut destroy) {
+            match update(&mut ship, &p, &mut buls, &mut asts, &mut parts) {
                 States::GameOver => break,
                 States::Score => score += 10,
                 States::Nothing => {}
@@ -59,7 +59,7 @@ fn main() {
             }
         } else if let Some(_) = e.render_args() {
             window.draw_2d(&e, |c, g, dev| {
-                render(&c, g, &mut ship, &mut buls, &mut asts, &destroy);
+                render(&c, g, &mut ship, &mut buls, &mut asts, &parts);
                 Text::new_color([1.0; 4], FSIZE)
                     .draw(
                         &format!("Score: {}", score),

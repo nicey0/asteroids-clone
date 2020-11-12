@@ -10,7 +10,7 @@ pub fn update(
     p: &Pressed,
     buls: &mut Vec<Bullet>,
     asts: &mut Vec<Asteroid>,
-    destroy: &mut Vec<Explosion>,
+    parts: &mut Particles,
 ) -> States {
     let sp = &ship.get_points();
     if p.a {
@@ -38,12 +38,9 @@ pub fn update(
             }
         }
     }
-    //for exp in destroy.iter_mut() {
-        //for part in exp.parts.iter_mut(){
-            //part.x += part.xspd;
-            //part.y += part.yspd;
-        //}
-    //}
+    for p in parts.iter_mut() {
+        p.tick();
+    }
     ship.tick();
     *buls = buls
         .iter_mut()

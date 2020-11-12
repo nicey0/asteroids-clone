@@ -2,7 +2,7 @@ use rand::{thread_rng, Rng};
 
 use super::util::*;
 
-pub type Explosion = Vec<Particle>;
+pub type Particles = Vec<Particle>;
 
 #[derive(Clone)]
 pub struct Particle {

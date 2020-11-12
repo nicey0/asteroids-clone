@@ -8,14 +8,14 @@ use piston_window::*;
 pub fn render(
     c: &Context,
     g: &mut G2d,
-    ship: &mut Ship,
-    buls: &mut Vec<Bullet>,
-    asts: &mut Vec<Asteroid>,
-    destroy: &Vec<Explosion>,
+    ship: &Ship,
+    buls: &Vec<Bullet>,
+    asts: &Vec<Asteroid>,
+    parts: &Particles,
 ) {
     clear([0.0, 0.0, 0.0, 1.0], g);
     draw_polygon(c, g, LINEW, ship.get_points().to_vec());
-    for ast in asts.iter_mut() {
+    for ast in asts.iter() {
         draw_polygon(c, g, LINEW, ast.get_points().to_vec());
         // external collider
         let b = ellipse::Ellipse::new_border([0.0, 1.0, 0.0, 1.0], LINEW);
@@ -35,15 +35,13 @@ pub fn render(
             g,
         );
     }
-    for ds in destroy.iter() {
-        for p in ds.get_parts().iter() {
-            b.draw(
-                ellipse::circle(p.get_x(), p.get_y(), 0.5),
-                &DrawState::default(),
-                c.transform,
-                g,
-            );
-        }
+    for p in parts.iter() {
+        b.draw(
+            ellipse::circle(p.get_x(), p.get_y(), 0.5),
+            &DrawState::default(),
+            c.transform,
+            g,
+        );
     }
 }
 
