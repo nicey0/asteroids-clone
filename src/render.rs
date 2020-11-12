@@ -1,6 +1,5 @@
 use super::asteroid::*;
 use super::consts::*;
-use super::math::*;
 use super::ship::*;
 use super::util::*;
 use piston_window::*;

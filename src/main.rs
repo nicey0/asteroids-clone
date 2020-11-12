@@ -1,5 +1,3 @@
-use std::{thread::sleep, time::Duration};
-
 use piston_window::*;
 
 mod consts;
@@ -13,8 +11,6 @@ mod ship;
 mod update;
 mod util;
 use asteroid::Asteroid;
-use col::*;
-use math::*;
 use render::*;
 use ship::*;
 use update::*;

@@ -1,6 +1,5 @@
 use super::asteroid::*;
 use super::col::*;
-use super::math::*;
 use super::ship::*;
 use super::util::*;
 

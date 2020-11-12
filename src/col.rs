@@ -1,5 +1,5 @@
 use super::asteroid::Asteroid;
-use super::math::*;
+use super::ship::Ship;
 use super::util::*;
 
 #[derive(PartialEq)]
@@ -23,7 +23,7 @@ fn distance_points(x: f64, sx: f64, y: f64, sy: f64) -> f64 {
     ((x - sx).powf(2.0) + (y - sy).powf(2.0)).powf(0.5)
 }
 
-pub fn point_in_polygon(p1: &APoint, poly: &Vec<APoint>) {}
+pub fn ship_in_asteroid(ship: &Ship, ast: &Asteroid) {}
 
 pub fn lines_intersect(l1: (APoint, APoint), l2: (APoint, APoint)) -> bool {
     let o1 = orientation(l1.0, l1.1, l2.0);
