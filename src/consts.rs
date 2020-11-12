@@ -22,9 +22,9 @@ pub const BULCOOLDOWN: u8 = 15;
 pub const BULSPD: f64 = 5.0;
 
 // asteroids
-pub const ASTSPD: (f64, f64) = (1.0, 2.0);
-pub const AST_RAD: f64 = 15.0;
-pub const AST_SIZE_VAR: f64 = 0.7;
+pub const ASTSPD: (f64, f64) = (0.4, 1.0);
+pub const AST_RAD: f64 = 30.0;
+pub const AST_SIZE_VAR: f64 = 0.4;
 pub const AST_EDGES: u8 = 12;
 pub const AST_COUNT: usize = 5;
 pub const AST_ROUND: f64 = 0.4;
