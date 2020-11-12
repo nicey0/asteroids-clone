@@ -1,5 +1,6 @@
 use super::asteroid::*;
 use super::col::*;
+use super::consts::*;
 use super::ship::*;
 use super::util::*;
 
@@ -10,22 +11,18 @@ pub fn update(
     asts: &mut Vec<Asteroid>,
 ) -> States {
     if p.a {
-        ship.rotate(-1);
+        ship.rotate(-ROTSPEED);
     } else if p.d {
-        ship.rotate(1);
+        ship.rotate(ROTSPEED);
+    }
+    if p.w {
+        ship.accelerate(ACCSPEED);
     }
     for ast in asts.iter() {
         if ship_in_asteroid(ship, ast) {
             return States::GameOver;
         }
     }
-    //for point in &ship.get_points() {
-    //for ast in asts.iter() {
-    //if inside_circle(point[0], point[1], ast) {
-    //return States::GameOver;
-    //}
-    //}
-    //}
     for bul in buls.iter_mut() {
         for ast in asts.iter_mut() {
             if inside_circle(bul.get_x(), bul.get_y(), ast) {
@@ -33,9 +30,6 @@ pub fn update(
                 return States::Score;
             };
         }
-    }
-    if p.w {
-        ship.accelerate(0.005);
     }
     tick_stuff(ship, buls, asts);
     States::Nothing
