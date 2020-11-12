@@ -10,9 +10,11 @@ mod render;
 mod ship;
 mod update;
 mod util;
-use asteroid::Asteroid;
+mod explosion;
+use asteroid::*;
 use render::*;
 use ship::*;
+use explosion::*;
 use update::*;
 use util::*;
 
@@ -20,6 +22,7 @@ fn main() {
     let mut ship = Ship::new();
     let mut p = Pressed::new();
     let mut asts: Vec<Asteroid> = Vec::with_capacity(AST_COUNT);
+    let mut destroy: Vec<Explosion> = Vec::with_capacity(AST_COUNT);
     let mut cooldown = 0;
     let mut score = 0;
     let mut mx = 0.0;
