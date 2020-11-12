@@ -13,20 +13,13 @@ pub fn render(
     asts: &mut Vec<Asteroid>,
 ) {
     clear([0.0, 0.0, 0.0, 1.0], g);
-    draw_polygon(
-        c,
-        g,
-        vec![
-            [0.0, 1.0],
-            [DIM as f64 / 2.0, DIM as f64],
-            [DIM as f64, 1.0],
-        ],
-    );
+    println!("{}, {}", ship.get_x(), ship.get_y());
+    draw_polygon(c, g, 0.4, ship.get_points().to_vec());
 }
 
-fn draw_polygon(c: &Context, g: &mut G2d, p: Vec<APoint>) {
+fn draw_polygon(c: &Context, g: &mut G2d, w: f64, p: Vec<APoint>) {
     for i in 0..p.len() - 1 {
-        line_from_to([1.0; 4], 5.0, p[i], p[i + 1], c.transform, g);
+        line_from_to([1.0; 4], w, p[i], p[i + 1], c.transform, g);
     }
-    line_from_to([1.0; 4], 5.0, p[0], p[p.len() - 1], c.transform, g);
+    line_from_to([1.0; 4], w, p[0], p[p.len() - 1], c.transform, g);
 }

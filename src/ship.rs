@@ -1,6 +1,6 @@
 use super::consts::*;
 use super::math::*;
-use super::util::Coord;
+use super::util::*;
 
 #[derive(Debug)]
 pub struct Ship {
@@ -10,17 +10,19 @@ pub struct Ship {
     yspd: f64,
     rot: f64,
     size: f64,
+    front: f64,
 }
 
 impl Ship {
-    pub fn new() -> Self {
+    pub fn new(size: f64) -> Self {
         Self {
             x: DIM as f64 / 2.0,
             y: DIM as f64 / 2.0,
             xspd: 0.0,
             yspd: 0.0,
             rot: 0.0,
-            size: 5.0,
+            size: size,
+            front: size * 3.0,
         }
     }
 
@@ -33,18 +35,36 @@ impl Ship {
         self.yspd += sin_math(acc, self.rot);
     }
 
+    pub fn get_points(&self) -> [APoint; 4] {
+        [
+            [
+                self.x + cos_math(self.size, self.rot - 50.0),
+                self.y + sin_math(self.size, self.rot - 50.0),
+            ],
+            [self.x, self.y],
+            [
+                self.x + cos_math(self.size, self.rot + 50.0),
+                self.y + sin_math(self.size, self.rot + 50.0),
+            ],
+            [
+                self.x + cos_math(self.front, self.rot),
+                self.y + sin_math(self.front, self.rot),
+            ],
+        ]
+    }
+
     pub fn tick(&mut self) {
         self.x += self.xspd;
         self.y += self.yspd;
         if self.x < -(PADDING as f64) {
             self.x = (DIM + PADDING - 1) as f64;
         } else if self.x >= (DIM + PADDING) as f64 {
-            self.x = 0.0;
+            self.x = 0.1 - PADDING as f64;
         }
         if self.y < -(PADDING as f64) {
             self.y = (DIM + PADDING - 1) as f64;
         } else if self.y >= (DIM + PADDING) as f64 {
-            self.y = 0.0;
+            self.y = 0.1 - PADDING as f64;
         }
     }
 
