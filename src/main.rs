@@ -22,7 +22,7 @@ fn main() {
     let mut ship = Ship::new(12.0);
     let mut p = Pressed::new();
     let mut asts: Vec<Asteroid> = Vec::new();
-    for _ in 0..10 {
+    for _ in 0..11 {
         asts.push(Asteroid::new());
     }
     let mut buls: Vec<Bullet> = Vec::new();
@@ -36,8 +36,8 @@ fn main() {
     window.set_ups(20);
     ship.rotate(-45);
     while let Some(e) = window.next() {
-        print!("\x1B[2J\x1B[1;1H");
-        println!("{:?}", ship.get_speed());
+        //print!("\x1B[2J\x1B[1;1H");
+        //println!("{:?}", ship.get_speed());
         update(&mut ship, &p, &mut buls, &mut asts);
         window.draw_2d(&e, |c, g, _| {
             render(&c, g, &mut ship, &mut buls, &mut asts);

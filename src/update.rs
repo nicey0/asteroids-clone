@@ -23,6 +23,7 @@ fn tick_stuff(ship: &mut Ship, buls: &mut Vec<Bullet>, asts: &mut Vec<Asteroid>)
         .collect();
     for ast in asts.iter_mut() {
         if !ast.tick() {
+            println!("ast {:#?} is die", ast);
             *ast = Asteroid::new();
         };
     }

@@ -28,9 +28,10 @@ impl Asteroid {
 
     fn gen_points(x: f64, y: f64, w: f64) -> Vec<APoint> {
         let mut v = Vec::new();
-        for i in 0..11 {
+        let edges = thread_rng().gen_range(5, AST_EDGES);
+        for i in 0..edges {
             let d = thread_rng().gen_range(w / 2.0, w);
-            let angle = (360.0 / 5.0) * i as f64;
+            let angle = (360.0 / edges as f64) * i as f64;
             let px = cos_math(d, angle);
             let py = sin_math(d, angle);
             v.push([x + px, y + py]);
@@ -56,6 +57,11 @@ impl Asteroid {
     pub fn tick(&mut self) -> bool {
         self.x += self.xspd;
         self.y += self.yspd;
+        // update points
+        for p in self.points.iter_mut() {
+            p[0] += self.xspd;
+            p[1] += self.yspd;
+        }
         // check out of bounds
         !(self.x < -(PADDING as f64)
             || self.x > DIM as f64 + PADDING as f64
@@ -82,19 +88,14 @@ impl Asteroid {
         self.w
     }
 
-    pub fn get_points(&self) -> Vec<APoint> {
-        let mut v2 = self.points.clone();
-        for p in v2.iter_mut() {
-            p[0] += self.x;
-            p[1] += self.y;
-        }
-        v2
+    pub fn get_points(&self) -> &Vec<APoint> {
+        &self.points
     }
 }
 
 fn get_random_dir(min: f64, max: f64, spdm: f64) -> (f64, f64) {
     let d = thread_rng().gen_range(min, max);
-    let dspd = thread_rng().gen_range(0.0, ASTSPD) * spdm;
+    let dspd = thread_rng().gen_range(ASTSPD.0, ASTSPD.1) * spdm;
     (d, dspd)
 }
 
@@ -103,5 +104,5 @@ fn rand_mid() -> f64 {
 }
 
 fn random_spd() -> f64 {
-    thread_rng().gen_range(0.0, ASTSPD)
+    thread_rng().gen_range(ASTSPD.0, ASTSPD.1)
 }

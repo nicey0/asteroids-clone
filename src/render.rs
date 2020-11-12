@@ -15,7 +15,7 @@ pub fn render(
     clear([0.0, 0.0, 0.0, 1.0], g);
     draw_polygon(c, g, LINEW, ship.get_points().to_vec());
     for ast in asts.iter_mut() {
-        draw_polygon(c, g, LINEW, ast.get_points().clone());
+        draw_polygon(c, g, LINEW, ast.get_points().to_vec());
         //let b = ellipse::Ellipse::new_border([1.0; 4], LINEW);
         //b.draw(
         //ellipse::circle(ast.get_x(), ast.get_y(), ast.get_w()),
