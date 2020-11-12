@@ -34,8 +34,7 @@ fn main() {
             .decorated(true)
             .build()
             .unwrap();
-    window.set_max_fps(30);
-    //window.set_ups(30);
+    window.set_ups(30);
 
     let mut glyphs = window
         .load_font("fonts/FiraSans-Regular.ttf")
