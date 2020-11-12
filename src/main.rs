@@ -22,7 +22,7 @@ fn main() {
     let mut ship = Ship::new(12.0);
     let mut p = Pressed::new();
     let mut asts: Vec<Asteroid> = Vec::new();
-    for _ in 0..11 {
+    for _ in 0..AST_COUNT {
         asts.push(Asteroid::new());
     }
     let mut buls: Vec<Bullet> = Vec::new();
@@ -33,7 +33,7 @@ fn main() {
             .decorated(true)
             .build()
             .unwrap();
-    window.set_ups(20);
+    window.set_ups(30);
     ship.rotate(-45);
     while let Some(e) = window.next() {
         //print!("\x1B[2J\x1B[1;1H");
