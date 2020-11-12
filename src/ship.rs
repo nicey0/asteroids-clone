@@ -15,7 +15,7 @@ pub struct Ship {
 }
 
 impl Ship {
-    pub fn new(size: f64) -> Self {
+    pub fn new() -> Self {
         Self {
             x: DIM as f64 / 2.0,
             y: DIM as f64 / 2.0,
@@ -23,8 +23,8 @@ impl Ship {
             yspd: 0.0,
             rot: 0.0,
             cdeg: 0.0,
-            size: size,
-            front: size * 3.0,
+            size: SHIPSIZE,
+            front: SHIPSIZE * 3.0,
         }
     }
 

@@ -1,5 +1,4 @@
 use super::asteroid::Asteroid;
-use super::ship::Ship;
 use super::util::*;
 
 #[derive(PartialEq)]

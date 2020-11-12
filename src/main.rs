@@ -17,7 +17,7 @@ use update::*;
 use util::*;
 
 fn main() {
-    let mut ship = Ship::new(12.0);
+    let mut ship = Ship::new();
     let mut p = Pressed::new();
     let mut asts: Vec<Asteroid> = Vec::with_capacity(AST_COUNT);
     let mut cooldown = 0;
