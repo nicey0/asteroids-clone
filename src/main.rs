@@ -24,6 +24,7 @@ fn main() {
     let mut ship = Ship::new(12.0);
     let mut p = Pressed::new();
     let mut asts: Vec<Asteroid> = Vec::new();
+    let mut cooldown = 0;
 
     for _ in 0..AST_COUNT {
         asts.push(Asteroid::new());
@@ -42,6 +43,9 @@ fn main() {
         print!("\x1B[2J\x1B[1;1H");
         //println!("{:?}", ship.get_speed());
         update(&mut ship, &p, &mut buls, &mut asts);
+        if cooldown > 0 {
+            cooldown -= 1;
+        }
         window.draw_2d(&e, |c, g, _| {
             render(&c, g, &mut ship, &mut buls, &mut asts);
         });
@@ -53,7 +57,12 @@ fn main() {
                             Key::D => p.d = true,
                             Key::A => p.a = true,
                             Key::W => p.w = true,
-                            Key::Space => buls.push(Bullet::new(&ship)),
+                            Key::Space => {
+                                if cooldown == 0 {
+                                    buls.push(Bullet::new(&ship));
+                                    cooldown = BULCOOLDOWN;
+                                }
+                            }
                             _ => {}
                         }
                     }
