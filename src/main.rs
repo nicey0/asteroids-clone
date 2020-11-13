@@ -15,6 +15,7 @@ mod update;
 mod util;
 use asteroid::*;
 use explosion::*;
+use math::*;
 use randstuff::Ranges;
 use render::*;
 use ship::*;
@@ -51,8 +52,8 @@ fn main() {
         .expect("error loading font!");
     while let Some(e) = window.next() {
         //print!("\x1B[2J\x1B[1;1H"); // clear screen
-        //println!("{}, {}", mx, my);
         if let Some(_) = e.update_args() {
+            look_at(&mut ship, mx, my);
             match update(&mut ship, &p, &mut buls, &mut asts, &mut parts, &mut rr) {
                 States::GameOver => break,
                 States::Score => score += 10,

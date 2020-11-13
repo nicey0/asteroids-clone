@@ -109,8 +109,8 @@ impl Ship {
         self.rot
     }
 
-    pub fn set_rot(&mut self, rot: f64) {
-        self.rot = rot;
+    pub fn add_rot(&mut self, rot: f64) {
+        self.rot += rot;
     }
 }
 
