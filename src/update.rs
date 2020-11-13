@@ -32,9 +32,9 @@ pub fn update(
         }
         for bul in buls.iter() {
             if inside_circle(bul.get_x(), bul.get_y(), ast) {
-                for _ in 0..5 {
-                    parts.push(Particle::new(ast.get_x(), ast.get_y()));
-                }
+                //for _ in 0..PARTICLES {
+                    //parts.push(Particle::new(ast.get_x(), ast.get_y()));
+                //}
                 *ast = Asteroid::new();
                 return States::Score;
             }

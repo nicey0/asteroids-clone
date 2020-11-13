@@ -17,14 +17,14 @@ pub fn render(
     draw_polygon(c, g, LINEW, ship.get_points().to_vec());
     for ast in asts.iter() {
         draw_polygon(c, g, LINEW, ast.get_points().to_vec());
-        // external collider
-        let b = ellipse::Ellipse::new_border([0.0, 1.0, 0.0, 1.0], LINEW);
-        b.draw(
-            ellipse::circle(ast.get_x(), ast.get_y(), ast.get_r()),
-            &DrawState::default(),
-            c.transform,
-            g,
-        );
+        // collider
+        //let b = ellipse::Ellipse::new_border([0.0, 1.0, 0.0, 1.0], LINEW);
+        //b.draw(
+            //ellipse::circle(ast.get_x(), ast.get_y(), ast.get_r()),
+            //&DrawState::default(),
+            //c.transform,
+            //g,
+        //);
     }
     let b = ellipse::Ellipse::new_border([1.0; 4], LINEW);
     for bul in buls.iter() {
