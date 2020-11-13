@@ -1,11 +1,9 @@
-use rand::{
-    distributions::{Distribution, Uniform},
-    thread_rng, Rng,
-};
+use rand::{distributions::Uniform, rngs::ThreadRng, thread_rng};
 
 use super::consts::*;
 
-struct Ranges {
+pub struct Ranges {
+    pub rng: ThreadRng,
     pub zero_one: Uniform<u8>,
 
     pub dim_half: Uniform<f64>,
@@ -16,8 +14,9 @@ struct Ranges {
 }
 
 impl Ranges {
-    pub fn create() -> Self {
+    pub fn new() -> Self {
         Self {
+            rng: thread_rng(),
             zero_one: Uniform::from(0..=1),
             dim_half: Uniform::from(0.0..=DIM as f64),
             ast_edges: Uniform::from(AST_EDGES / 2..=AST_EDGES),

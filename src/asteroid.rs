@@ -3,6 +3,8 @@ use super::math::*;
 use super::randstuff::*;
 use super::util::APoint;
 
+use rand::distributions::Distribution;
+
 #[derive(Debug, Clone)]
 pub struct Asteroid {
     x: f64,
@@ -14,24 +16,24 @@ pub struct Asteroid {
 }
 
 impl Asteroid {
-    pub fn new() -> Self {
-        let ((x, xspd), (y, yspd)) = Self::get_random_xy();
-        let r = rand_r();
+    pub fn new(rr: &mut Ranges) -> Self {
+        let ((x, xspd), (y, yspd)) = Self::get_random_xy(rr);
+        let r = rr.ast_r.sample(&mut rr.rng);
         Self {
             x,
             y,
             xspd,
             yspd,
             r,
-            points: Self::gen_points(x, y, r),
+            points: Self::gen_points(x, y, r, rr),
         }
     }
 
-    fn gen_points(x: f64, y: f64, r: f64) -> Vec<APoint> {
+    fn gen_points(x: f64, y: f64, r: f64, rr: &mut Ranges) -> Vec<APoint> {
         let mut v = Vec::new();
-        let edges = thread_rng().gen_range(AST_EDGES - 3, AST_EDGES);
+        let edges = rr.ast_edges.sample(&mut rr.rng);
         for i in 0..edges {
-            let d = thread_rng().gen_range(r * AST_ROUND, r);
+            let d = rr.ast_r.sample(&mut rr.rng);
             let angle = (360.0 / edges as f64) * i as f64;
             let px = cos_math(d, angle);
             let py = sin_math(d, angle);
@@ -40,16 +42,25 @@ impl Asteroid {
         v
     }
 
-    fn get_random_xy() -> ((f64, f64), (f64, f64)) {
-        let fh = match thread_rng().gen_range(0, 2) {
-            0 => (-(PADDING as f64) + 0.1, random_spd()),
-            _ => ((DIM + PADDING) as f64 - 0.1, random_spd() * -1.0),
+    fn get_random_xy(rr: &mut Ranges) -> ((f64, f64), (f64, f64)) {
+        let fh = match rr.zero_one.sample(&mut rr.rng) {
+            0 => (-(PADDING as f64) + 0.1, rr.ast_speed.sample(&mut rr.rng)),
+            _ => (
+                (DIM + PADDING) as f64 - 0.1,
+                rr.ast_speed.sample(&mut rr.rng) * -1.0,
+            ),
         };
-        let fd = match thread_rng().gen_range(0, 2) {
-            0 => (rand_mid(), random_spd()),
-            _ => (rand_mid() + DIM as f64 / 2.0 - 0.1, random_spd() * -1.0),
+        let fd = match rr.zero_one.sample(&mut rr.rng) {
+            0 => (
+                rr.dim_half.sample(&mut rr.rng),
+                rr.ast_speed.sample(&mut rr.rng),
+            ),
+            _ => (
+                rr.dim_half.sample(&mut rr.rng) + DIM as f64 / 2.0 - 0.1,
+                rr.ast_speed.sample(&mut rr.rng) * -1.0,
+            ),
         };
-        return match thread_rng().gen_range(0, 2) {
+        return match rr.zero_one.sample(&mut rr.rng) {
             0 => (fh, fd),
             _ => (fd, fh),
         };

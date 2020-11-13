@@ -14,6 +14,7 @@ mod update;
 mod util;
 use asteroid::*;
 use explosion::*;
+use randstuff::Ranges;
 use render::*;
 use ship::*;
 use update::*;
@@ -29,8 +30,9 @@ fn main() {
     let mut mx = 0.0;
     let mut my = 0.0;
 
+    let mut rr = Ranges::new();
     for _ in 0..AST_COUNT {
-        asts.push(Asteroid::new());
+        asts.push(Asteroid::new(&mut rr));
     }
     let mut buls: Vec<Bullet> = Vec::new();
     let mut window: PistonWindow =
@@ -50,7 +52,7 @@ fn main() {
         //print!("\x1B[2J\x1B[1;1H"); // clear screen
         //println!("{}, {}", mx, my);
         if let Some(_) = e.update_args() {
-            match update(&mut ship, &p, &mut buls, &mut asts, &mut parts) {
+            match update(&mut ship, &p, &mut buls, &mut asts, &mut parts, &mut rr) {
                 States::GameOver => break,
                 States::Score => score += 10,
                 States::Nothing => {}

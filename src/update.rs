@@ -1,9 +1,10 @@
 use super::asteroid::*;
 use super::col::*;
 use super::consts::*;
+use super::explosion::*;
+use super::randstuff::*;
 use super::ship::*;
 use super::util::*;
-use super::explosion::*;
 
 pub fn update(
     ship: &mut Ship,
@@ -11,6 +12,7 @@ pub fn update(
     buls: &mut Vec<Bullet>,
     asts: &mut Vec<Asteroid>,
     parts: &mut Particles,
+    rr: &mut Ranges,
 ) -> States {
     let sp = &ship.get_points();
     if p.a {
@@ -23,7 +25,7 @@ pub fn update(
     }
     for ast in asts.iter_mut() {
         if !ast.tick() {
-            *ast = Asteroid::new();
+            *ast = Asteroid::new(rr);
         };
         if ship_in_asteroid_circle(sp, ast) {
             if ship_in_asteroid(sp, ast) {
@@ -33,9 +35,9 @@ pub fn update(
         for bul in buls.iter() {
             if inside_circle(bul.get_x(), bul.get_y(), ast) {
                 //for _ in 0..PARTICLES {
-                    //parts.push(Particle::new(ast.get_x(), ast.get_y()));
+                //parts.push(Particle::new(ast.get_x(), ast.get_y()));
                 //}
-                *ast = Asteroid::new();
+                *ast = Asteroid::new(rr);
                 return States::Score;
             }
         }
