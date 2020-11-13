@@ -5,16 +5,16 @@ use consts::*;
 
 mod asteroid;
 mod col;
+mod explosion;
 mod math;
 mod render;
 mod ship;
 mod update;
 mod util;
-mod explosion;
 use asteroid::*;
+use explosion::*;
 use render::*;
 use ship::*;
-use explosion::*;
 use update::*;
 use util::*;
 
