@@ -21,10 +21,10 @@ pub const BULSPD: f64 = 5.0;
 
 // asteroids
 pub const ASTSPD: (f64, f64) = (0.4, 1.0);
-pub const AST_RAD: f64 = 30.0;
+pub const AST_RAD: f64 = 40.0;
 pub const AST_SIZE_VAR: f64 = 0.4;
 pub const AST_EDGES: u8 = 25;
-pub const AST_COUNT: usize = 5;
+pub const AST_COUNT: usize = 7;
 pub const AST_ROUND: f64 = 0.7;
 
 // particles
