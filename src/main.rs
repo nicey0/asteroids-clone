@@ -29,8 +29,6 @@ fn main() {
     let mut parts: Particles = Vec::with_capacity(AST_COUNT);
     let mut cooldown = 0;
     let mut score = 0;
-    let mut mx = 0.0;
-    let mut my = 0.0;
 
     let mut rr = Ranges::new();
     for _ in 0..AST_COUNT {
@@ -53,7 +51,6 @@ fn main() {
     while let Some(e) = window.next() {
         //print!("\x1B[2J\x1B[1;1H"); // clear screen
         if let Some(_) = e.update_args() {
-            look_at(&mut ship, mx, my);
             match update(&mut ship, &p, &mut buls, &mut asts, &mut parts, &mut rr) {
                 States::GameOver => break,
                 States::Score => score += 10,
@@ -77,9 +74,6 @@ fn main() {
                     .expect("error drawing text!");
                 glyphs.factory.encoder.flush(dev);
             });
-        } else if let Some(coor) = e.mouse_cursor_args() {
-            mx = coor[0];
-            my = coor[1];
         } else if let Some(b) = e.button_args() {
             match b.state {
                 ButtonState::Press => {
