@@ -7,6 +7,7 @@ mod asteroid;
 mod col;
 mod explosion;
 mod math;
+mod randstuff;
 mod render;
 mod ship;
 mod update;

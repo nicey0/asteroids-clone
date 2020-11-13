@@ -1,7 +1,7 @@
 use super::consts::*;
 use super::math::*;
+use super::randstuff::*;
 use super::util::APoint;
-use rand::{thread_rng, Rng};
 
 #[derive(Debug, Clone)]
 pub struct Asteroid {
@@ -92,22 +92,4 @@ impl Asteroid {
     pub fn get_points(&self) -> &Vec<APoint> {
         &self.points
     }
-}
-
-fn get_random_dir(min: f64, max: f64, spdm: f64) -> (f64, f64) {
-    let d = thread_rng().gen_range(min, max);
-    let dspd = thread_rng().gen_range(ASTSPD.0, ASTSPD.1) * spdm;
-    (d, dspd)
-}
-
-fn rand_mid() -> f64 {
-    thread_rng().gen_range(0.0, DIM as f64 / 2.0)
-}
-
-fn rand_r() -> f64 {
-    thread_rng().gen_range(AST_RAD * AST_SIZE_VAR, AST_RAD)
-}
-
-fn random_spd() -> f64 {
-    thread_rng().gen_range(ASTSPD.0, ASTSPD.1)
 }

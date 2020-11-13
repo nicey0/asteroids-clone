@@ -1,6 +1,4 @@
 use std::f64::consts::PI;
-use rand::distributions::{Distribution, Uniform};
-
 
 // screen
 pub const DIM: u32 = 600;
