@@ -2,10 +2,7 @@ use super::conf::*;
 use super::math::*;
 use super::randstuff::*;
 use super::util::APoint;
-use rand::{
-    distributions::{Distribution, Uniform},
-    thread_rng,
-};
+use rand::distributions::{Distribution, Uniform};
 
 #[derive(Debug, Clone)]
 pub struct Asteroid {
