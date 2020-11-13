@@ -2,9 +2,10 @@ use super::conf::*;
 use super::math::*;
 use super::randstuff::*;
 use super::util::APoint;
-use rand::distributions::Uniform;
-
-use rand::distributions::Distribution;
+use rand::{
+    distributions::{Distribution, Uniform},
+    thread_rng,
+};
 
 #[derive(Debug, Clone)]
 pub struct Asteroid {
@@ -25,6 +26,18 @@ impl Asteroid {
             y,
             xspd,
             yspd,
+            r,
+            points: Self::gen_points(x, y, r, rr),
+        }
+    }
+
+    pub fn new_small(rr: &mut Ranges, x: f64, y: f64, r: f64) -> Self {
+        let r = r * 0.5;
+        Self {
+            x,
+            y,
+            xspd: rr.ast_speed.sample(&mut rr.rng),
+            yspd: rr.ast_speed.sample(&mut rr.rng),
             r,
             points: Self::gen_points(x, y, r, rr),
         }
