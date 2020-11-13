@@ -1,5 +1,5 @@
 use super::consts::*;
-use super::ship::Ship;
+//use super::ship::Ship;
 
 // cosine math
 pub fn cos_math(m: f64, rot: f64) -> f64 {

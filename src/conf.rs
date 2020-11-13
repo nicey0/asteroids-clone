@@ -1,5 +1,3 @@
-use std::f64::consts::PI;
-
 // screen
 pub const DIM: u32 = 600;
 pub const PADDING: u32 = 15;
@@ -31,6 +29,3 @@ pub const AST_ROUND: f64 = 0.7;
 
 // particles
 pub const PARTICLES: u8 = 10;
-
-// math
-pub const RADTODEG: f64 = 2.0 * (PI / 360.0);
