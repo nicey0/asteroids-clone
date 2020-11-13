@@ -1,5 +1,5 @@
 use super::asteroid::*;
-use super::consts::*;
+use super::conf::*;
 use super::explosion::*;
 use super::ship::*;
 use super::util::*;

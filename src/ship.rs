@@ -1,4 +1,4 @@
-use super::consts::*;
+use super::conf::*;
 use super::math::*;
 use super::util::*;
 

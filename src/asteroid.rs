@@ -1,8 +1,8 @@
-use super::consts::*;
+use super::conf::*;
 use super::math::*;
 use super::randstuff::*;
 use super::util::APoint;
-use rand::{distributions::Uniform, rngs::ThreadRng, thread_rng};
+use rand::distributions::Uniform;
 
 use rand::distributions::Distribution;
 

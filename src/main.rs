@@ -1,10 +1,11 @@
 use piston_window::*;
 
-mod consts;
-use consts::*;
+mod conf;
+use conf::*;
 
 mod asteroid;
 mod col;
+mod consts;
 mod explosion;
 mod math;
 mod randstuff;

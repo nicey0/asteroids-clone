@@ -1,6 +1,6 @@
 use rand::{distributions::Uniform, rngs::ThreadRng, thread_rng};
 
-use super::consts::*;
+use super::conf::*;
 
 pub struct Ranges {
     pub rng: ThreadRng,

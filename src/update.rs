@@ -1,6 +1,6 @@
 use super::asteroid::*;
 use super::col::*;
-use super::consts::*;
+use super::conf::*;
 use super::explosion::*;
 use super::randstuff::*;
 use super::ship::*;
