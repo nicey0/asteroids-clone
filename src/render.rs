@@ -1,8 +1,8 @@
 use super::asteroid::*;
 use super::consts::*;
+use super::explosion::*;
 use super::ship::*;
 use super::util::*;
-use super::explosion::*;
 use piston_window::*;
 
 pub fn render(
@@ -20,28 +20,27 @@ pub fn render(
         // collider
         //let b = ellipse::Ellipse::new_border([0.0, 1.0, 0.0, 1.0], LINEW);
         //b.draw(
-            //ellipse::circle(ast.get_x(), ast.get_y(), ast.get_r()),
-            //&DrawState::default(),
-            //c.transform,
-            //g,
+        //ellipse::circle(ast.get_x(), ast.get_y(), ast.get_r()),
+        //&DrawState::default(),
+        //c.transform,
+        //g,
         //);
     }
-    let b = ellipse::Ellipse::new_border([1.0; 4], LINEW);
     for bul in buls.iter() {
-        b.draw(
-            ellipse::circle(bul.get_x(), bul.get_y(), bul.get_r()),
-            &DrawState::default(),
+        ellipse(
+            [1.0; 4],
+            ellipse::circle(bul.get_x(), bul.get_y(), LINEW),
             c.transform,
             g,
-        );
+        )
     }
     for p in parts.iter() {
-        b.draw(
-            ellipse::circle(p.get_x(), p.get_y(), 0.5),
-            &DrawState::default(),
+        ellipse(
+            [1.0; 4],
+            ellipse::circle(p.get_x(), p.get_y(), LINEW),
             c.transform,
             g,
-        );
+        )
     }
 }
 
