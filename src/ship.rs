@@ -9,7 +9,6 @@ pub struct Ship {
     xspd: f64,
     yspd: f64,
     rot: f64,
-    cdeg: f64,
     size: f64,
     front: f64,
 }
@@ -22,19 +21,13 @@ impl Ship {
             xspd: 0.0,
             yspd: 0.0,
             rot: 0.0,
-            cdeg: 0.0,
             size: SHIPSIZE,
             front: SHIPSIZE * 3.0,
         }
     }
 
     pub fn rotate(&mut self, deg: f64) {
-        self.cdeg += deg;
-        if self.cdeg > 5.0 {
-            self.cdeg = 5.0;
-        } else if self.cdeg < -5.0 {
-            self.cdeg = -5.0;
-        }
+        self.rot += deg;
     }
 
     pub fn accelerate(&mut self, acc: f64) {
@@ -55,15 +48,6 @@ impl Ship {
     pub fn tick(&mut self) {
         self.x += self.xspd;
         self.y += self.yspd;
-        self.rot += self.cdeg;
-        if self.cdeg > 0.0 && self.cdeg <= 5.0 {
-            self.cdeg -= 0.8;
-        } else if self.cdeg < 0.0 && self.cdeg >= -5.0 {
-            self.cdeg += 0.8;
-        }
-        if -0.8 < self.cdeg && self.cdeg < 0.8 {
-            self.cdeg = 0.0;
-        }
         if self.x < -(PADDING as f64) {
             self.x = (DIM + PADDING - 1) as f64;
         } else if self.x >= (DIM + PADDING) as f64 {
@@ -107,10 +91,6 @@ impl Ship {
 
     pub fn get_rot(&self) -> f64 {
         self.rot
-    }
-
-    pub fn add_rot(&mut self, rot: f64) {
-        self.rot += rot;
     }
 }
 

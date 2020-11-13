@@ -15,7 +15,6 @@ mod update;
 mod util;
 use asteroid::*;
 use explosion::*;
-use math::*;
 use randstuff::Ranges;
 use render::*;
 use ship::*;

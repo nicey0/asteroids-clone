@@ -13,7 +13,7 @@ pub const FSIZE: u32 = 20;
 pub const SHIPSIZE: f64 = 5.0;
 pub const MAXSPEED: f64 = 100.0;
 pub const ACCSPEED: f64 = 0.02;
-pub const ROTSPEED: f64 = 3.0;
+pub const ROTSPEED: f64 = 4.0;
 
 // bullets
 pub const BULCOOLDOWN: u8 = 15;

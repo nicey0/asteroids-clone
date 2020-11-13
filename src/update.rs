@@ -16,9 +16,9 @@ pub fn update(
 ) -> States {
     let sp = &ship.get_points();
     if p.a {
-        ship.rotate(-ROTSPEED * 0.8);
+        ship.rotate(-ROTSPEED);
     } else if p.d {
-        ship.rotate(ROTSPEED * 0.8);
+        ship.rotate(ROTSPEED);
     }
     if p.w {
         ship.accelerate(ACCSPEED / 0.8);
