@@ -1,5 +1,6 @@
-use rand::{thread_rng, Rng};
+use rand::distributions::Distribution;
 
+use super::randstuff::Ranges;
 use super::util::*;
 
 pub type Particles = Vec<Particle>;
@@ -14,12 +15,12 @@ pub struct Particle {
 }
 
 impl Particle {
-    pub fn new(x: f64, y: f64) -> Self {
+    pub fn new(x: f64, y: f64, rr: &mut Ranges) -> Self {
         Self {
             x,
             y,
-            xspd: thread_rng().gen_range(-1.0, 1.0),
-            yspd: thread_rng().gen_range(-1.0, 1.0),
+            xspd: rr.p_speed.sample(&mut rr.rng),
+            yspd: rr.p_speed.sample(&mut rr.rng),
             timer: 20,
         }
     }
@@ -32,10 +33,9 @@ impl Particle {
             self.y += self.yspd;
             self.timer -= 1;
             true
-        }
+        };
     }
 }
-
 
 impl Coord for Particle {
     fn get_x(&self) -> f64 {

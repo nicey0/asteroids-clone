@@ -10,8 +10,9 @@ pub struct Ranges {
 
     pub ast_edges: Uniform<u8>,
     pub ast_r: Uniform<f64>,
-    pub ast_round: Uniform<f64>,
     pub ast_speed: Uniform<f64>,
+
+    pub p_speed: Uniform<f64>,
 }
 
 impl Ranges {
@@ -22,8 +23,8 @@ impl Ranges {
             dim_half: Uniform::from(0.0..=DIM as f64),
             ast_edges: Uniform::from(AST_EDGES / 2..=AST_EDGES),
             ast_r: Uniform::from(AST_RAD * AST_SIZE_VAR..=AST_RAD),
-            ast_round: Uniform::from(AST_RAD * AST_ROUND..AST_RAD),
             ast_speed: Uniform::from(ASTSPD.0..=ASTSPD.1),
+            p_speed: Uniform::from(-1.0..=1.0),
         }
     }
 }

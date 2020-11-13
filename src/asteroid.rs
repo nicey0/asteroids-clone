@@ -2,6 +2,7 @@ use super::consts::*;
 use super::math::*;
 use super::randstuff::*;
 use super::util::APoint;
+use rand::{distributions::Uniform, rngs::ThreadRng, thread_rng};
 
 use rand::distributions::Distribution;
 
@@ -31,9 +32,10 @@ impl Asteroid {
 
     fn gen_points(x: f64, y: f64, r: f64, rr: &mut Ranges) -> Vec<APoint> {
         let mut v = Vec::new();
+        let ast_round = Uniform::from(r * AST_ROUND..r);
         let edges = rr.ast_edges.sample(&mut rr.rng);
         for i in 0..edges {
-            let d = rr.ast_round.sample(&mut rr.rng);
+            let d = ast_round.sample(&mut rr.rng);
             let angle = (360.0 / edges as f64) * i as f64;
             let px = cos_math(d, angle);
             let py = sin_math(d, angle);
