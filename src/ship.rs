@@ -104,6 +104,14 @@ impl Ship {
     pub fn get_speed(&self) -> (f64, f64) {
         (self.xspd, self.yspd)
     }
+
+    pub fn get_rot(&self) -> f64 {
+        self.rot
+    }
+
+    pub fn set_rot(&mut self, rot: f64) {
+        self.rot = rot;
+    }
 }
 
 #[derive(PartialEq, Clone, Copy)]
