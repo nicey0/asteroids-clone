@@ -33,7 +33,7 @@ impl Asteroid {
         let mut v = Vec::new();
         let edges = rr.ast_edges.sample(&mut rr.rng);
         for i in 0..edges {
-            let d = rr.ast_r.sample(&mut rr.rng);
+            let d = rr.ast_round.sample(&mut rr.rng);
             let angle = (360.0 / edges as f64) * i as f64;
             let px = cos_math(d, angle);
             let py = sin_math(d, angle);
