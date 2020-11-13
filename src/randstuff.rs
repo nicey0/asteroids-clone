@@ -21,8 +21,8 @@ impl Ranges {
             zero_one: Uniform::from(0..=1),
             dim_half: Uniform::from(0.0..=DIM as f64),
             ast_edges: Uniform::from(AST_EDGES / 2..=AST_EDGES),
-            ast_r: Uniform::from(AST_RAD*AST_SIZE_VAR..=AST_RAD),
-            ast_speed: Uniform::from(ASTSPD.0, =ASTSPD.1),
+            ast_r: Uniform::from(AST_RAD * AST_SIZE_VAR..=AST_RAD),
+            ast_speed: Uniform::from(ASTSPD.0..=ASTSPD.1),
         }
     }
 }
